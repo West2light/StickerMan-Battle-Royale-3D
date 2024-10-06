@@ -68,7 +68,7 @@ public class Player : Character
 
             //transform.Translate(rotateDir * speed * Time.deltaTime, Space.World);
             Vector3 moveDes = transform.position + transform.forward * speed * Time.fixedDeltaTime;
-            rigidbody.MovePosition(moveDes);
+            GetComponent<Rigidbody>().MovePosition(moveDes);
 
             if (Input.GetKeyDown(KeyCode.Space))
             {
@@ -105,6 +105,7 @@ public class Player : Character
 
             if (Input.GetKeyDown(KeyCode.Space))
             {
+                RotateToward(GameController.Instance.enemy);
                 ChangeState(BehaviourState.Attack);
                 return;
             }
@@ -131,6 +132,10 @@ public class Player : Character
         }
     }
 
+    protected override void RotateToward(Character targetShooter)
+    {
+        base.RotateToward(targetShooter);
+    }
     public void SetJoystick(Joystick newJoystick)
     {
         joystick = newJoystick;

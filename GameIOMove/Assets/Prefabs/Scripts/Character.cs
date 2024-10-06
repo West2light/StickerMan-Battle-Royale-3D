@@ -21,7 +21,7 @@ public class Character : MonoBehaviour
     public BaseWeapon[] weaponPrefabs;
 
     public bool isRunning;
-    protected Rigidbody rigidbody;
+    public Rigidbody rigidbodyCharacter;
     public BaseWeapon usingWeapon;
 
     protected const string ANIM_TRIGGER_IDLE = "Idle";
@@ -31,6 +31,7 @@ public class Character : MonoBehaviour
     protected const string ANIM_TRIGGER_DANCE = "Dance";
 
     public Transform handTransform;
+    public Transform headTransform;
     public float throwForce = 20f;
     public Transform throwPoint;
 
@@ -41,7 +42,7 @@ public class Character : MonoBehaviour
     #region Unity Methods
     protected virtual void Awake()
     {
-        rigidbody = GetComponent<Rigidbody>();
+        rigidbodyCharacter = GetComponent<Rigidbody>();
         timerIdle = 0f;
     }
 
@@ -93,30 +94,17 @@ public class Character : MonoBehaviour
             }
         }
 
-        //currentWeaponId = weaponId;
-        //int weaponIndex = (int)weaponId - 1;
-        //usingWeapon = Instantiate(weaponPrefabs[weaponIndex]);
-        //usingWeapon.transform.SetParent(handTransform);
-        //usingWeapon.transform.localPosition = Vector3.zero;
-        //usingWeapon.transform.localRotation = Quaternion.identity;
+   
     }
-
     public void ChangeWeapon()
     {
         int randomIndex = Random.Range(0, weaponPrefabs.Length);
+        Debug.LogFormat("WeaponPrefabs.Length =  {0}", weaponPrefabs.Length);
         BaseWeapon prefab = weaponPrefabs[randomIndex];
         if (prefab != null)
         {
             CreateWeapon(prefab.id);
         }
-
-        //WeaponId newWeaponId;
-        //do
-        //{
-        //    newWeaponId = (WeaponId)Random.Range(1, weaponPrefabs.Length + 1);
-        //} while (newWeaponId == currentWeaponId);
-
-        //CreateWeapon(newWeaponId);
     }
 
     public virtual void ChangeState(BehaviourState newState)
@@ -185,10 +173,9 @@ public class Character : MonoBehaviour
     }
     protected virtual void RotateToward(Character targetShooter)
     {
-        //Vector3 direction = (targetShooter.transform.position - transform.position).normalized;
-        //Quaternion lookRotation = Quaternion.LookRotation(direction);
-        //rigidbody.MoveRotation(lookRotation);
-
+        Vector3 direction = (targetShooter.transform.position - transform.position).normalized;
+        Quaternion rotation = Quaternion.LookRotation(direction, Vector3.up);
+        transform.rotation = rotation;
     }
     protected virtual void BeginDance()
     {

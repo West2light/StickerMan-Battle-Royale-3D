@@ -82,11 +82,22 @@ MonoBehaviour:
   timerIdle: 0
   weaponPrefabs:
   - {fileID: -2742523193105536576, guid: 200298be491cfda458323967ddececbd, type: 3}
-  - {fileID: -2742523193105536576, guid: 0307bfde4aefcd84caa1d4e6e272a149, type: 3}
   - {fileID: -2742523193105536576, guid: ad3c16b57c353554da762a426d1369dc, type: 3}
+  - {fileID: -2742523193105536576, guid: 0307bfde4aefcd84caa1d4e6e272a149, type: 3}
+  - {fileID: 6061281237822702536, guid: a500950451720e946b55ad98a0127fd9, type: 3}
+  - {fileID: 781714169178030335, guid: b4fbd9f16ed90b64594e7442ab35eac9, type: 3}
+  - {fileID: 1880785407721065055, guid: e39e6f4c980439840a75840dfa5a7bc9, type: 3}
+  - {fileID: 6728529704089164779, guid: a3c8137ff9808dc48a0ebad577301d55, type: 3}
+  - {fileID: 5215716792744699493, guid: fcc59fbc2f9878b45b921d9dadcbd540, type: 3}
+  - {fileID: 5903002466912333352, guid: ba485bef4e69d1448af9519dcd61bd99, type: 3}
+  - {fileID: 8887443037189951069, guid: 21fe8d2222f109d4b97d4c1a242d2aa4, type: 3}
+  - {fileID: 1248353640270264055, guid: fe5e92df687ccf24d8389cebd7b8d030, type: 3}
+  - {fileID: 8999962559642646851, guid: cf6f944d02c6d074d81182966e336a36, type: 3}
   isRunning: 0
+  rigidbodyCharacter: {fileID: 0}
   usingWeapon: {fileID: 0}
   handTransform: {fileID: 4277072921850430279}
+  headTransform: {fileID: 0}
   throwForce: 20
   throwPoint: {fileID: 5218982558667589551}
   heal: 100

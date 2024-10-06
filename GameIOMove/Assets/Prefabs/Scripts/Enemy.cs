@@ -21,6 +21,7 @@ public class Enemy : Character
     //    base.FixedUpdate();
     //    RotateToward(GameController.Instance.player);
     //}
+
     public override void ChangeState(BehaviourState newState)
     {
         base.ChangeState(newState);
@@ -53,15 +54,7 @@ public class Enemy : Character
                 {
                     if (GameController.Instance.player.CompareTag(colliders[i].transform.root.tag))
                     {
-                        Debug.Log("PlayerPosition=" + GameController.Instance.player.transform.position);
-                        Vector3 direction = (GameController.Instance.player.transform.position - transform.position).normalized;
-                        Debug.LogFormat("direction = {0}", direction);
-                        float angle = Vector3.Angle(transform.position, direction);
-
-                        Quaternion rotation = Quaternion.AngleAxis(angle, Vector3.up);
-                        Debug.LogFormat("rotation = {0}, angle = {1}", rotation, angle);
-                        transform.rotation = rotation;
-
+                        RotateToward(GameController.Instance.player);
                         ChangeState(BehaviourState.Attack);
                         return;
                     }
@@ -117,6 +110,10 @@ public class Enemy : Character
         return v;
     }
 
+    protected override void RotateToward(Character targetShooter)
+    {
+        base.RotateToward(targetShooter);
+    }
 
     protected override void BeginRun()
     {
