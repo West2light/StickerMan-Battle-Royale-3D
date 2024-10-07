@@ -19,10 +19,14 @@ public class Character : MonoBehaviour
     public BehaviourState state = BehaviourState.Idle;
     public float timerIdle;
     public BaseWeapon[] weaponPrefabs;
+    public BaseHat[] hatPrefabs;
+    public BasePant[] pantPrefabs;
+    public SkinnedMeshRenderer skinnedMesh;
 
     public bool isRunning;
     public Rigidbody rigidbodyCharacter;
     public BaseWeapon usingWeapon;
+    public BaseHat usingHat;
 
     protected const string ANIM_TRIGGER_IDLE = "Idle";
     protected const string ANIM_TRIGGER_RUN = "Run";
@@ -49,6 +53,7 @@ public class Character : MonoBehaviour
     protected virtual void Start()
     {
         CreateWeapon(WeaponId.Hammer);
+        CreateHat(HatId.Cowboy);
     }
     protected virtual void Update()
     {
@@ -94,9 +99,10 @@ public class Character : MonoBehaviour
             }
         }
 
-   
+
     }
-    public void ChangeWeapon()
+
+    public virtual void ChangeWeapon()
     {
         int randomIndex = Random.Range(0, weaponPrefabs.Length);
         Debug.LogFormat("WeaponPrefabs.Length =  {0}", weaponPrefabs.Length);
@@ -107,6 +113,70 @@ public class Character : MonoBehaviour
         }
     }
 
+    public virtual void CreateHat(HatId hatId)
+    {
+        if (hatId == HatId.None)
+        {
+            return;
+        }
+        for (int i = 0; i < hatPrefabs.Length; i++)
+        {
+            BaseHat prefab = hatPrefabs[i];
+            if (prefab != null && prefab.id == hatId)
+            {
+                if (usingHat != null)
+                {
+                    Destroy(usingHat.gameObject);
+                    usingHat = null;
+                }
+                usingHat = Instantiate(prefab);
+                usingHat.transform.SetParent(headTransform);
+                usingHat.transform.localPosition = Vector3.zero;
+                usingHat.transform.localRotation = Quaternion.identity;
+                return;
+            }
+        }
+    }
+    public virtual void ChangeHat()
+    {
+        int randomIndex = Random.Range(0, hatPrefabs.Length);
+        BaseHat prefab = hatPrefabs[randomIndex];
+        if (prefab != null)
+        {
+            CreateHat(prefab.id);
+        }
+    }
+    public virtual void CreatePant(PantId pantId)
+    {
+        if (pantId == PantId.None)
+        {
+            return;
+        }
+        for (int i = 0; i < pantPrefabs.Length; i++)
+        {
+            BasePant prefabPant = pantPrefabs[i];
+            if (prefabPant.material != null && prefabPant.id == pantId)
+            {
+                if (skinnedMesh.material != null)
+                {
+                    skinnedMesh.material = null;
+                }
+                skinnedMesh.material = prefabPant.GetComponent<BasePant>().material;
+                return;
+            }
+
+        }
+    }
+    public virtual void ChangePant()
+    {
+        int ramdomIndex = Random.Range(0, pantPrefabs.Length);
+        BasePant prefabPant = pantPrefabs[ramdomIndex];
+        if (prefabPant.material != null)
+        {
+            CreatePant(prefabPant.id);
+
+        }
+    }
     public virtual void ChangeState(BehaviourState newState)
     {
         if (state != newState)

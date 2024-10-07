@@ -62,7 +62,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 086c4edb03eca2b488e19be819aeeb02, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  model: {fileID: 0}
+  model: {fileID: 6061281237822702543, guid: a500950451720e946b55ad98a0127fd9, type: 3}
   speedMove: 5
   speedTurn: 2000
   rb: {fileID: 0}
@@ -141,7 +141,7 @@ CapsuleCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3998628754572391914}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   m_Radius: 0.005833263
   m_Height: 0.026596578

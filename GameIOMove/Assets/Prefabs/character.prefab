@@ -81,11 +81,15 @@ MonoBehaviour:
   state: 0
   timerIdle: 5
   weaponPrefabs: []
+  hatPrefabs: []
+  pantPrefabs: []
   isRunning: 0
   rigidbodyCharacter: {fileID: 0}
   usingWeapon: {fileID: 0}
+  usingHat: {fileID: 0}
+  usingPant: {fileID: 0}
   handTransform: {fileID: 2048415063660099090}
-  headTransform: {fileID: 0}
+  headTransform: {fileID: 5493428236396361544}
   throwForce: 20
   throwPoint: {fileID: 8024241841275007738}
   heal: 100
@@ -1106,6 +1110,11 @@ Animator:
 --- !u!4 &2048415063660099090 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 3679216210968674810, guid: 95d1f70328fa6354aa8497d126d82450, type: 3}
+  m_PrefabInstance: {fileID: 3414393735849539560}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &5493428236396361544 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: -2062984104648900448, guid: 95d1f70328fa6354aa8497d126d82450, type: 3}
   m_PrefabInstance: {fileID: 3414393735849539560}
   m_PrefabAsset: {fileID: 0}
 --- !u!4 &6248431585358043004 stripped

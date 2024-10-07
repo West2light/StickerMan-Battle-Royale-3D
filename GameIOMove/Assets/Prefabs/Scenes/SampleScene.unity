@@ -705,6 +705,13 @@ MonoBehaviour:
     m_Bits: 512
   maxX: {fileID: 840452072}
   maxZ: {fileID: 883250290}
+  characterVariants:
+  - {fileID: 2183683603726215528, guid: 2afac7e8336c47f4291d4be04a04a758, type: 3}
+  - {fileID: 8015377294857657497, guid: c12c4745dd5fc194fa45f5e9178ef2f7, type: 3}
+  - {fileID: 8015377294857657497, guid: 8706af9fb603fcb4eb47d3d7a26dd170, type: 3}
+  - {fileID: 8015377294857657497, guid: e2f418fe59f1ce549a4789aedaa9d633, type: 3}
+  - {fileID: 8015377294857657497, guid: 5338cd7bb5558c54caa7e683b6ff6855, type: 3}
+  - {fileID: 8015377294857657497, guid: e49f1885a3577d443b3665ed630069a3, type: 3}
 --- !u!224 &776679562 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 8135886326569738822, guid: 56fae09712773584fb63896d473a98ee, type: 3}

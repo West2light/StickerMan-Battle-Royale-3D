@@ -36,6 +36,14 @@ public class Player : Character
         {
             ChangeWeapon();
         }
+        if (Input.GetKeyDown(KeyCode.E))
+        {
+            ChangeHat();
+        }
+        if (Input.GetKeyDown(KeyCode.F))
+        {
+            ChangePant();
+        }
         if (Input.GetKeyDown(KeyCode.X))
         {
             ChangeState(BehaviourState.Dead);
