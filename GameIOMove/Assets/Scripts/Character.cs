@@ -161,7 +161,7 @@ public class Character : MonoBehaviour
                 {
                     skinnedMesh.material = null;
                 }
-                skinnedMesh.material = prefabPant.GetComponent<BasePant>().material;
+                skinnedMesh.material = prefabPant.material;
                 return;
             }
 
