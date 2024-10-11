@@ -14,6 +14,7 @@ public static class GameDataConstants
         {
             weapons = Resources.LoadAll<WeaponData>("GameData/Weapons").ToList();
         }
+
         if (hats == null)
         {
             hats = Resources.LoadAll<HatData>("GameData/Hats").ToList();

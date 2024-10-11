@@ -72,17 +72,17 @@
     <Compile Include="Assets\Scripts\BaseBullet.cs" />
     <Compile Include="Assets\Joystick Pack\Scripts\Joysticks\DynamicJoystick.cs" />
     <Compile Include="Assets\Joystick Pack\Scripts\Base\Joystick.cs" />
+    <Compile Include="Assets\Data\PantData.cs" />
     <Compile Include="Assets\Scripts\GameEnums.cs" />
     <Compile Include="Assets\Scripts\Player.cs" />
     <Compile Include="Assets\Joystick Pack\Examples\JoystickSetterExample.cs" />
+    <Compile Include="Assets\Data\HatData.cs" />
+    <Compile Include="Assets\Scripts\Lobby\PopupWeapon.cs" />
     <Compile Include="Assets\Scripts\CameraController.cs" />
     <Compile Include="Assets\Joystick Pack\Scripts\Joysticks\FloatingJoystick.cs" />
     <Compile Include="Assets\Scripts\BaseHat.cs" />
     <Compile Include="Assets\Scripts\Singleton.cs" />
     <Compile Include="Assets\Scripts\BasePant.cs" />
-    <Compile Include="Assets\Scripts\Lobby\PopupWeapon.cs" />
-    <Compile Include="Assets\Data\HatData.cs" />
-    <Compile Include="Assets\Data\PantData.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="UnityEngine">

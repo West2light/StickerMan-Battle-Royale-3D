@@ -20,7 +20,7 @@ public class GameController : Singleton<GameController>
     private Player currentCharacter;   // Nhân vật hiện tại
 
     // Start is called before the first frame update
-    void Start()
+    private void Start()
     {
         GameDataConstants.Load();
         CreatePlayer();
