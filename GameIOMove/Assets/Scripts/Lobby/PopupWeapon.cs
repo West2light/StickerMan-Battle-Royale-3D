@@ -7,7 +7,6 @@ using System.Linq;
 public class PopupWeapon : MonoBehaviour
 {
 
-    public GameObject weaponPopup;
 
     public Image imgWeapon;
     public Text txWeaponRange;
