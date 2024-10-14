@@ -5,50 +5,49 @@ using UnityEngine.UI;
 
 public class PopupHat : MonoBehaviour
 {
-    public GameObject prefabBoxhat;
+    public BoxHat prefabBoxhat;
     public Transform content;
-    private int currentIndex = -1;
 
     public HatId selectingHatId;
 
-    private void Awake()
-    {
-        currentIndex = 0;
-    }
+    private List<BoxHat> hats = new List<BoxHat>();
 
     private void Start()
     {
         CreateHats();
-        //ClickbtNext();
     }
-    //private void ClickbtNext()
-    //{
-    //    currentIndex++;
-    //    if (currentIndex > GameDataConstants.hats.Count)
-    //    {
-    //        currentIndex = 0;
-    //    }
-    //}
-    private void Update()
+
+    private void CheckHightLight()
     {
+        for (int i = 0; i < hats.Count; i++)
+        {
+            BoxHat hat = hats[i];
+            hat.SetHighlight(hat.data.hatId == selectingHatId);
+        }
 
     }
+
     private void CreateHats()
     {
         for (int i = 0; i < GameDataConstants.hats.Count; i++)
         {
-            HatData hat = GameDataConstants.hats[i];
+            HatData hatData = GameDataConstants.hats[i];
 
-            prefabBoxhat = Instantiate(prefabBoxhat);
-            prefabBoxhat.transform.SetParent(content, false);
-            BoxHatController controller = prefabBoxhat.GetComponent<BoxHatController>();
-            controller.SetImages(hat.imageHat);
+            BoxHat instanceBoxHat = Instantiate(prefabBoxhat, content);
+            instanceBoxHat.SetInfo(this, hatData);
+
+            hats.Add(instanceBoxHat);
+
+
         }
 
-        //currentIndex++;
-        //if (currentIndex > GameDataConstants.hats.Count)
-        //{
-        //    currentIndex = 0;
-        //}
+        CheckHightLight();
     }
+
+    public void OnHatSelected(HatId hatId)
+    {
+        selectingHatId = hatId;
+        CheckHightLight();
+    }
+
 }

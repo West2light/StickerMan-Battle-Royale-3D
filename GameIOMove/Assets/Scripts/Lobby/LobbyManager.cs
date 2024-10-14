@@ -9,6 +9,7 @@ public class LobbyManager : Singleton<LobbyManager>
     public Button btSkin;
     public Button btWeapon;
     public PopupWeapon popupWeapon;
+    public PopupSkin popupSkin;
 
     private void Awake()
     {
