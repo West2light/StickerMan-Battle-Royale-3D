@@ -132,7 +132,7 @@ GameObject:
   - component: {fileID: 978624745147627508}
   - component: {fileID: 1362130131633371429}
   - component: {fileID: 3756148062016866600}
-  - component: {fileID: 8908926997243685149}
+  - component: {fileID: 5297122305083163817}
   m_Layer: 5
   m_Name: box-pant
   m_TagString: Untagged
@@ -201,7 +201,7 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!114 &8908926997243685149
+--- !u!114 &5297122305083163817
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -210,11 +210,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 1883078930359472319}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e6e5457e210540b4bb5c10b05634d8b5, type: 3}
+  m_Script: {fileID: 11500000, guid: e0b32fbf85108ca4d81cb0a6b465979b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   button: {fileID: 6849172724458650308}
-  imgHat: {fileID: 7419292734429765939}
+  imgPant: {fileID: 7419292734429765939}
   imgLock: {fileID: 5552435850052909334}
   imgHightLight: {fileID: 2907756552393896423}
   data: {fileID: 0}

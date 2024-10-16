@@ -50,5 +50,16 @@ public enum PantId
 
 public enum SkinSetId
 {
-
+    None = 0,
+    Angel = 1,
+    DeadPool = 2,
+    Devil = 3,
+    Thor = 4,
+    Witch = 5,
+}
+public enum ShieldId
+{
+    None = 0,
+    Black = 1,
+    Captain = 2,
 }

@@ -49,5 +49,8 @@ public class PopupHat : MonoBehaviour
         selectingHatId = hatId;
         CheckHightLight();
     }
+    private void OnClick()
+    {
 
+    }
 }

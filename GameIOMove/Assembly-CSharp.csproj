@@ -80,12 +80,20 @@
     <Compile Include="Assets\Scripts\Lobby\PopupHat.cs" />
     <Compile Include="Assets\Data\HatData.cs" />
     <Compile Include="Assets\Scripts\Lobby\PopupWeapon.cs" />
+    <Compile Include="Assets\Scripts\Lobby\PopupSkin.cs" />
     <Compile Include="Assets\Scripts\CameraController.cs" />
     <Compile Include="Assets\Joystick Pack\Scripts\Joysticks\FloatingJoystick.cs" />
     <Compile Include="Assets\Scripts\BaseHat.cs" />
     <Compile Include="Assets\Scripts\Singleton.cs" />
     <Compile Include="Assets\Scripts\BasePant.cs" />
-    <Compile Include="Assets\Scripts\Lobby\PopupSkin.cs" />
+    <Compile Include="Assets\Scripts\ShieldData.cs" />
+    <Compile Include="Assets\Scripts\SetData.cs" />
+    <Compile Include="Assets\Scripts\Lobby\PopupPant.cs" />
+    <Compile Include="Assets\BoxPant.cs" />
+    <Compile Include="Assets\PopupShield.cs" />
+    <Compile Include="Assets\BoxShield.cs" />
+    <Compile Include="Assets\PopupSet.cs" />
+    <Compile Include="Assets\BoxSet.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="UnityEngine">
