@@ -12,6 +12,9 @@ public class PopupHat : MonoBehaviour
 
     private List<BoxHat> hats = new List<BoxHat>();
 
+
+
+
     private void Start()
     {
         CreateHats();
@@ -49,8 +52,5 @@ public class PopupHat : MonoBehaviour
         selectingHatId = hatId;
         CheckHightLight();
     }
-    private void OnClick()
-    {
 
-    }
 }

@@ -7,4 +7,5 @@ public class HatData : ScriptableObject
     public HatId hatId;
     public string Name;
     public Sprite imageHat;
+    public int price;
 }

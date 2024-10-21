@@ -218,7 +218,6 @@ MonoBehaviour:
   imgLock: {fileID: 5552435850052909334}
   imgHightLight: {fileID: 2907756552393896423}
   data: {fileID: 0}
-  popupHat: {fileID: 0}
 --- !u!1 &2405406168267355681
 GameObject:
   m_ObjectHideFlags: 0
@@ -313,7 +312,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &6793224846319907896
 RectTransform:
   m_ObjectHideFlags: 0
@@ -332,7 +331,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 200, y: 140}
+  m_SizeDelta: {x: 210, y: 140}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &3214914151022488851
 CanvasRenderer:

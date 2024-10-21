@@ -5,6 +5,7 @@ using UnityEngine.UI;
 
 public class LobbyManager : Singleton<LobbyManager>
 {
+    public Player player;
     public Button btPlay;
     public Button btSkin;
     public Button btWeapon;

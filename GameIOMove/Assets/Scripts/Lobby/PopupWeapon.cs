@@ -22,6 +22,7 @@ public class PopupWeapon : MonoBehaviour
     private int currentIndex = -1;
     private const string strEquipped = "Equipped";
     private const string strSellect = "Sellect";
+
     private void Awake()
     {
         currentIndex = 0;

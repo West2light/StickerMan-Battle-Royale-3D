@@ -15,31 +15,20 @@ public class PopupSkin : MonoBehaviour
 {
     public List<GameObject> popups;
     public SkinTab currentTab;
-    private void Start()
+
+    private void Awake()
     {
-        ShowPopup(currentTab);
+        Show(SkinTab.Pant);
     }
 
-    public void ShowPopup(SkinTab newTab)
+    public void Show(SkinTab tab)
     {
-        Debug.Log("ShowPopup called with tab: " + newTab);
-        currentTab = newTab;
-        UpdatePopups();
-    }
+        currentTab = tab;
 
-    private void UpdatePopups()
-    {
-        Debug.Log("Updating popups... Current tab: " + currentTab);
         for (int i = 0; i < popups.Count; i++)
         {
-            popups[i].gameObject.SetActive(false);
-        }
-
-
-        int tabIndex = (int)currentTab;
-        if (tabIndex >= 0 && tabIndex < popups.Count)
-        {
-            popups[tabIndex].SetActive(true);
+            popups[i].SetActive(i == (int)currentTab);
         }
     }
+
 }
