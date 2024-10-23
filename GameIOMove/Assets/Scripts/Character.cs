@@ -43,6 +43,7 @@ public class Character : MonoBehaviour
 
     public string TeamTag;
     protected bool isAttacking = false;
+
     #region Unity Methods
     protected virtual void Awake()
     {
@@ -52,9 +53,9 @@ public class Character : MonoBehaviour
 
     protected virtual void Start()
     {
-        CreateWeapon(WeaponId.Hammer);
-        CreateHat(HatId.Cowboy);
+        ReloadDefaultOutfit();
     }
+
     protected virtual void Update()
     {
 
@@ -72,7 +73,19 @@ public class Character : MonoBehaviour
     #endregion
 
     #region Functions
-    public virtual void CreateWeapon(WeaponId weaponId)
+    public void ReloadDefaultOutfit()
+    {
+        int equippedWeaponId = PlayerPrefs.GetInt(GameDataUser.PREF_KEY_EQUIPPED_WEAPON, (int)WeaponId.Hammer);
+        EquipWeapon((WeaponId)equippedWeaponId);
+
+        int equippedPantId = PlayerPrefs.GetInt(GameDataUser.PREF_KEY_EQUIPPED_PANT, (int)PantId.Batman);
+        EquipPant((PantId)equippedPantId);
+
+        int equippedHatId = PlayerPrefs.GetInt(GameDataUser.PREF_KEY_EQUIPPED_HAT, (int)HatId.Cowboy);
+        EquipHat((HatId)equippedHatId);
+    }
+
+    public virtual void EquipWeapon(WeaponId weaponId)
     {
         if (weaponId == WeaponId.None)
         {
@@ -109,11 +122,11 @@ public class Character : MonoBehaviour
         BaseWeapon prefab = weaponPrefabs[randomIndex];
         if (prefab != null)
         {
-            CreateWeapon(prefab.id);
+            EquipWeapon(prefab.id);
         }
     }
 
-    public virtual void CreateHat(HatId hatId)
+    public virtual void EquipHat(HatId hatId)
     {
         if (hatId == HatId.None)
         {
@@ -143,10 +156,10 @@ public class Character : MonoBehaviour
         BaseHat prefab = hatPrefabs[randomIndex];
         if (prefab != null)
         {
-            CreateHat(prefab.id);
+            EquipHat(prefab.id);
         }
     }
-    public virtual void CreatePant(PantId pantId)
+    public virtual void EquipPant(PantId pantId)
     {
         if (pantId == PantId.None)
         {
@@ -173,7 +186,7 @@ public class Character : MonoBehaviour
         BasePant prefabPant = pantPrefabs[ramdomIndex];
         if (prefabPant.material != null)
         {
-            CreatePant(prefabPant.id);
+            EquipPant(prefabPant.id);
 
         }
     }

@@ -2,9 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+
 public class Player : Character
 {
-
     private float inputVertical;
     private float inputHorizontal;
 
@@ -16,8 +16,8 @@ public class Player : Character
     {
         base.Start();
         TeamTag = "TeamA";
-
     }
+
     protected override void Update()
     {
         base.Update();
@@ -47,6 +47,10 @@ public class Player : Character
         if (Input.GetKeyDown(KeyCode.X))
         {
             ChangeState(BehaviourState.Dead);
+            return;
+        }
+        if (Input.GetKeyDown(KeyCode.B))
+        {
             return;
         }
     }
@@ -144,6 +148,7 @@ public class Player : Character
     {
         base.RotateToward(targetShooter);
     }
+
     public void SetJoystick(Joystick newJoystick)
     {
         joystick = newJoystick;
@@ -153,5 +158,6 @@ public class Player : Character
         base.BeginAttack();
         isAttacking = false;
     }
+
 
 }

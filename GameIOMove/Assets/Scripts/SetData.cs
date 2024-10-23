@@ -6,5 +6,5 @@ public class SetData : ScriptableObject
 {
     public SkinSetId setId;
     public Sprite sprSet;
-    public string name;
+    public string Name;
 }

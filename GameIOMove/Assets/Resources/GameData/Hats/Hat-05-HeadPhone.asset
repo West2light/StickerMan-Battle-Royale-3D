@@ -15,3 +15,4 @@ MonoBehaviour:
   hatId: 5
   Name: HeadPhone
   imageHat: {fileID: 21300000, guid: 694f596b7929bdb409ba3630631783d9, type: 3}
+  price: 5000

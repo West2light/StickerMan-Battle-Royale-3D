@@ -15,9 +15,33 @@ public class LobbyManager : Singleton<LobbyManager>
     private void Awake()
     {
         GameDataConstants.Load();
+        GameDataUser.Load();
+
         btPlay.onClick.AddListener(ClickBtPlay);
         btSkin.onClick.AddListener(ClickBtSkin);
         btWeapon.onClick.AddListener(ClickBtWeapon);
+    }
+
+    private void Update()
+    {
+        if (Input.GetKeyUp(KeyCode.G))
+        {
+            Debug.Log("goldHave=" + GameDataUser.gold);
+        }
+
+        if (Input.GetKeyUp(KeyCode.A))
+        {
+            int goldAdd = Random.Range(20, 100);
+            GameDataUser.AddGold(goldAdd);
+            Debug.LogFormat("add={0}, goldHave={1}", goldAdd, GameDataUser.gold);
+        }
+
+        if (Input.GetKeyUp(KeyCode.C))
+        {
+            int goldConsume = Random.Range(20, 100);
+            GameDataUser.ConsumeGold(goldConsume);
+            Debug.LogFormat("consume={0}, goldHave={1}", goldConsume, GameDataUser.gold);
+        }
     }
 
     private void ClickBtPlay()
@@ -27,7 +51,7 @@ public class LobbyManager : Singleton<LobbyManager>
 
     private void ClickBtSkin()
     {
-
+        popupSkin.gameObject.SetActive(true);
     }
 
     private void ClickBtWeapon()

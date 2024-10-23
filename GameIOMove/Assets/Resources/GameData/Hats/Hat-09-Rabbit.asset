@@ -15,3 +15,4 @@ MonoBehaviour:
   hatId: 9
   Name: Rabbit
   imageHat: {fileID: 21300000, guid: 5dd6afb8b1bc7b947853e77fc8811be4, type: 3}
+  price: 9000

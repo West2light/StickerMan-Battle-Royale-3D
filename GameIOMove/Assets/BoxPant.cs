@@ -30,5 +30,6 @@ public class BoxPant : MonoBehaviour
     private void OnClick()
     {
         popupPant.OnPantSelected(data.id);
+        LobbyManager.Instance.player.EquipPant(data.id);
     }
 }

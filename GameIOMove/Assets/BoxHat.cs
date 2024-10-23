@@ -34,7 +34,7 @@ public class BoxHat : MonoBehaviour
     private void OnClick()
     {
         popupHat.OnHatSelected(data.hatId);
-        LobbyManager.Instance.player.CreateHat(data.hatId);
+        LobbyManager.Instance.player.EquipHat(data.hatId);
     }
 
 

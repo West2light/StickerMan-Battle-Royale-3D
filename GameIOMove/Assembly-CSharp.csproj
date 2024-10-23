@@ -67,12 +67,14 @@
     <Compile Include="Assets\Scripts\Enemy.cs" />
     <Compile Include="Assets\BoxShield.cs" />
     <Compile Include="Assets\Data\GameDataConstants.cs" />
+    <Compile Include="Assets\TabShield.cs" />
     <Compile Include="Assets\Scripts\ShieldData.cs" />
     <Compile Include="Assets\Scripts\Character.cs" />
     <Compile Include="Assets\PopupShield.cs" />
     <Compile Include="Assets\Scripts\CharacterAnimationEvent.cs" />
     <Compile Include="Assets\Joystick Pack\Examples\JoystickPlayerExample.cs" />
     <Compile Include="Assets\Scripts\Lobby\LobbyManager.cs" />
+    <Compile Include="Assets\TabOutFit.cs" />
     <Compile Include="Assets\Scripts\BaseBullet.cs" />
     <Compile Include="Assets\BoxHat.cs" />
     <Compile Include="Assets\Joystick Pack\Scripts\Joysticks\DynamicJoystick.cs" />
@@ -83,21 +85,20 @@
     <Compile Include="Assets\Scripts\GameEnums.cs" />
     <Compile Include="Assets\BoxSet.cs" />
     <Compile Include="Assets\Scripts\Player.cs" />
+    <Compile Include="Assets\TabHat.cs" />
     <Compile Include="Assets\Joystick Pack\Examples\JoystickSetterExample.cs" />
     <Compile Include="Assets\Scripts\Lobby\PopupHat.cs" />
     <Compile Include="Assets\Data\HatData.cs" />
     <Compile Include="Assets\Scripts\Lobby\PopupWeapon.cs" />
     <Compile Include="Assets\Scripts\Lobby\PopupSkin.cs" />
     <Compile Include="Assets\Scripts\CameraController.cs" />
+    <Compile Include="Assets\TabPant.cs" />
     <Compile Include="Assets\Joystick Pack\Scripts\Joysticks\FloatingJoystick.cs" />
     <Compile Include="Assets\BoxPant.cs" />
     <Compile Include="Assets\Scripts\BaseHat.cs" />
     <Compile Include="Assets\Scripts\Singleton.cs" />
     <Compile Include="Assets\Scripts\BasePant.cs" />
-    <Compile Include="Assets\TabHat.cs" />
-    <Compile Include="Assets\TabPant.cs" />
-    <Compile Include="Assets\TabShield.cs" />
-    <Compile Include="Assets\TabOutFit.cs" />
+    <Compile Include="Assets\Data\GameDataUser.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="UnityEngine">

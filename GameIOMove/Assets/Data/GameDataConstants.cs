@@ -10,6 +10,7 @@ public static class GameDataConstants
     public static List<PantData> pants;
     public static List<ShieldData> shields;
     public static List<SetData> sets;
+
     public static void Load()
     {
         if (weapons == null)
