@@ -97,8 +97,8 @@
     <Compile Include="Assets\BoxPant.cs" />
     <Compile Include="Assets\Scripts\BaseHat.cs" />
     <Compile Include="Assets\Scripts\Singleton.cs" />
-    <Compile Include="Assets\Scripts\BasePant.cs" />
     <Compile Include="Assets\Data\GameDataUser.cs" />
+    <Compile Include="Assets\Scripts\BasePant.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="UnityEngine">
