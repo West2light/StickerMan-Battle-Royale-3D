@@ -218,6 +218,7 @@ MonoBehaviour:
   imgLock: {fileID: 5552435850052909334}
   imgHightLight: {fileID: 2907756552393896423}
   data: {fileID: 0}
+  txPriceHat: {fileID: 0}
 --- !u!1 &2405406168267355681
 GameObject:
   m_ObjectHideFlags: 0
