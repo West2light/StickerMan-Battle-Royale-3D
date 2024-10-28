@@ -75,14 +75,11 @@ public class Character : MonoBehaviour
     #region Functions
     public void ReloadDefaultOutfit()
     {
-        int equippedWeaponId = PlayerPrefs.GetInt(GameDataUser.PREF_KEY_EQUIPPED_WEAPON, (int)WeaponId.Hammer);
-        EquipWeapon((WeaponId)equippedWeaponId);
+        EquipWeapon((WeaponId)GameDataUser.equippedWeapon);
 
-        int equippedPantId = PlayerPrefs.GetInt(GameDataUser.PREF_KEY_EQUIPPED_PANT, (int)PantId.Batman);
-        EquipPant((PantId)equippedPantId);
+        EquipPant((PantId)GameDataUser.equippedPant);
 
-        int equippedHatId = PlayerPrefs.GetInt(GameDataUser.PREF_KEY_EQUIPPED_HAT, (int)HatId.Cowboy);
-        EquipHat((HatId)equippedHatId);
+        EquipHat((HatId)GameDataUser.equippedHat);
     }
 
     public virtual void EquipWeapon(WeaponId weaponId)

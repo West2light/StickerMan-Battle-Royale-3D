@@ -7,30 +7,53 @@ public class PopupHat : MonoBehaviour
 {
     public BoxHat prefabBoxhat;
     public Transform content;
-
-    public HatId selectingHatId;
-
-    public List<BoxHat> hats = new List<BoxHat>();
-
     public Button btBuy;
     public Button btEquipped;
     public Text txPriceHat;
 
-    public HatData currentHatData;
-    private void Start()
+    private HatId selectingHatId;
+    private HatData selectingHatData;
+    private List<BoxHat> hats = new List<BoxHat>();
+
+
+    private void Awake()
     {
         CreateHats();
-        btBuy.onClick.AddListener(CheckHatInfo);
+        btBuy.onClick.AddListener(ClickBtBuyHat);
     }
 
-    private void CheckHightLight()
+    private void OnEnable()
+    {
+        // Set selecting = mũ đang equipped, nếu không có thì = NONE
+
+        if (GameDataUser.equippedHat != null)
+        {
+            selectingHatId = (HatId)GameDataUser.equippedHat;
+
+        }
+        else
+        {
+            selectingHatId = HatId.None;
+        }
+
+        ReloadInfo();
+    }
+
+    private void ReloadInfo()
     {
         for (int i = 0; i < hats.Count; i++)
         {
             BoxHat hat = hats[i];
-            hat.SetHighlight(hat.data.hatId == selectingHatId);
+            if (hat.data.hatId == selectingHatId)
+            {
+                selectingHatData = hat.data;
+                break;
+            }
         }
 
+        CheckHightLight();
+        CheckButtons();
+        SetPrice();
     }
 
     private void CreateHats()
@@ -43,63 +66,121 @@ public class PopupHat : MonoBehaviour
             instanceBoxHat.SetInfo(this, hatData);
             hats.Add(instanceBoxHat);
         }
-
-        CheckHightLight();
-        SetPrice();
     }
 
     public void OnHatSelected(HatId hatId)
     {
         selectingHatId = hatId;
-        CheckHightLight();
-        SetPrice();
+        ReloadInfo();
     }
 
-    public void SetPrice()
+    private void CheckHightLight()
     {
-        // từ selectingHatId => tìm đc HatData
-        HatData selectingHatData = null;
         for (int i = 0; i < hats.Count; i++)
         {
             BoxHat hat = hats[i];
-            if (hat.data.hatId == selectingHatId)
-            {
-                selectingHatData = hat.data;
-                break;
-            }
+            hat.SetHighlight(hat.data.hatId == selectingHatId);
         }
-        txPriceHat.text = selectingHatData.price.ToString();
     }
-    public void CheckHatInfo()
-    {
-        currentHatData = null;
-        BoxHat hat = null;
-        for (int i = 0; i < hats.Count; i++)
-        {
-            hat = hats[i];
-            if (hat.data.hatId == selectingHatId)
-            {
-                currentHatData = hat.data;
-                break;
-            }
-        }
-        bool isOwned = GameDataUser.IsOwnedHat(currentHatData.hatId);
 
-        if (isOwned)
+    private void SetPrice()
+    {
+        if (selectingHatId != HatId.None)
         {
-            hat.imgLock.gameObject.SetActive(false);
-            txPriceHat.gameObject.SetActive(false);
-            btBuy.gameObject.SetActive(false);
+            txPriceHat.text = selectingHatData.price.ToString();
+
+            if (GameDataUser.gold >= selectingHatData.price)
+            {
+                txPriceHat.color = Color.black;
+                btBuy.enabled = true;
+            }
+            else
+            {
+                txPriceHat.color = Color.red;
+                btBuy.enabled = false;
+            }
+
+            btBuy.gameObject.SetActive(true);
         }
         else
         {
-            hat.imgLock.gameObject.SetActive(true);
-            txPriceHat.gameObject.SetActive(true);
-            txPriceHat.text = currentHatData.price.ToString();
-            btBuy.gameObject.SetActive(true);
-            GameDataUser.BuyHat();
+            btBuy.gameObject.SetActive(false);
         }
-
     }
 
+    private void CheckButtons()
+    {
+        // check hiển thị các nút
+        for (int i = 0; i < GameDataUser.owernedHats.Count; i++)
+        {
+            if (selectingHatId == (HatId)GameDataUser.owernedHats[i])
+            {
+                btBuy.gameObject.SetActive(false);
+                btEquipped.gameObject.SetActive(true);
+            }
+            else
+            {
+                btBuy.gameObject.SetActive(true);
+                btEquipped.gameObject.SetActive(false);
+            }
+
+        }
+    }
+
+    public void ClickBtBuyHat()
+    {
+        if (GameDataUser.gold >= selectingHatData.price)
+        {
+            GameDataUser.gold -= selectingHatData.price;
+            PlayerPrefs.SetInt(GameDataUser.PREF_KEY_GOLD, GameDataUser.gold);
+            PlayerPrefs.Save();
+            GameDataUser.BuyHat(selectingHatId);
+            ReloadInfo();
+        }
+
+        //    currentHatData = null;
+        //    BoxHat selectedHat = null;
+        //    for (int i = 0; i < hats.Count; i++)
+        //    {
+        //        BoxHat hat = hats[i];
+        //        if (hat.data.hatId == selectingHatId)
+        //        {
+        //            selectedHat = hat;
+        //            currentHatData = hat.data;
+        //            break;
+        //        }
+        //    }
+        //    bool isOwned = GameDataUser.IsOwnedHat(currentHatData.hatId);
+
+        //    if (isOwned)
+        //    {
+        //        if (selectedHat != null)
+        //        {
+        //            selectedHat.imgLock.gameObject.SetActive(false);
+        //        }
+        //        btBuy.gameObject.SetActive(false);
+        //    }
+        //    else
+        //    {
+        //        if (selectedHat != null)
+        //        {
+        //            selectedHat.imgLock.gameObject.SetActive(true);
+        //        }
+
+        //        txPriceHat.gameObject.SetActive(true);
+        //        txPriceHat.text = currentHatData.price.ToString();
+        //        btBuy.gameObject.SetActive(true);
+        //        GameDataUser.BuyHat();
+        //    }
+
+        //    for (int i = 0; i < GameDataUser.owernedHats.Count; i++)
+        //    {
+        //        HatData hatOwerned = new HatData();
+        //        hatOwerned.hatId = GameDataUser.owernedHats[i];
+        //        currentHatData = hatOwerned;
+        //    }
+
+        //}
+
+    }
 }

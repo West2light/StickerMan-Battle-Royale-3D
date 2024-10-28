@@ -31,7 +31,7 @@ public class LobbyManager : Singleton<LobbyManager>
 
         if (Input.GetKeyUp(KeyCode.A))
         {
-            int goldAdd = Random.Range(20, 100);
+            int goldAdd = Random.Range(500, 2000);
             GameDataUser.AddGold(goldAdd);
             Debug.LogFormat("add={0}, goldHave={1}", goldAdd, GameDataUser.gold);
         }
