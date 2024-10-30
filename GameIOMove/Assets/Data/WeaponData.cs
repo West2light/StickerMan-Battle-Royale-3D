@@ -12,4 +12,5 @@ public class WeaponData : ScriptableObject
     public Sprite icon;
     public float damage;
     public float range;
+    public int price;
 }

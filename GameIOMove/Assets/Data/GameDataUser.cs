@@ -17,20 +17,20 @@ public static class GameDataUser
     public const string PREF_KEY_EQUIPPED_HAT = "equipped_hat";
     public const string PREF_KEY_OWENED_HAT = "owened_hat";
 
-    public static List<int> owernedHats = new List<int>();
-
+    public static List<int> owenedHats = new List<int>();
+    public static List<int> owenedWps = new List<int>();
     public static void Load()
     {
-        gold = PlayerPrefs.GetInt(PREF_KEY_GOLD, 1000);
+        gold = PlayerPrefs.GetInt(PREF_KEY_GOLD, 100);
         equippedHat = PlayerPrefs.GetInt(PREF_KEY_EQUIPPED_HAT, (int)HatId.Cowboy);
         equippedWeapon = PlayerPrefs.GetInt(PREF_KEY_EQUIPPED_WEAPON, (int)WeaponId.Hammer);
         equippedPant = PlayerPrefs.GetInt(PREF_KEY_EQUIPPED_PANT, (int)PantId.Batman);
 
         // Load hat đang equpiped + owerned hat
-        LoadOwernedHat();
-        for (int i = 0; i < owernedHats.Count; i++)
+        LoadOwenedHat();
+        for (int i = 0; i < owenedHats.Count; i++)
         {
-            Debug.Log("List of owernedHat: " + owernedHats[i]);
+            Debug.Log("List of owernedHat: " + owenedHats[i]);
         }
     }
 
@@ -51,15 +51,15 @@ public static class GameDataUser
     // Hat
     public static bool IsOwnedHat(HatId id)
     {
-        return owernedHats.Contains((int)id);
+        return owenedHats.Contains((int)id);
     }
 
     public static void BuyHat(HatId id)
     {
-        if (owernedHats.Contains((int)id) == false)
+        if (owenedHats.Contains((int)id) == false)
         {
-            owernedHats.Add((int)id);
-            SaveOwernedHat();
+            owenedHats.Add((int)id);
+            SaveOwendHat();
         }
     }
 
@@ -69,20 +69,34 @@ public static class GameDataUser
         PlayerPrefs.SetInt(PREF_KEY_EQUIPPED_HAT, equippedHat);
         PlayerPrefs.Save();
     }
-    public static void SaveOwernedHat()
+    public static void SaveOwendHat()
     {
-        string json = JsonConvert.SerializeObject(owernedHats);
+        string json = JsonConvert.SerializeObject(owenedHats);
         PlayerPrefs.SetString(PREF_KEY_OWENED_HAT, json);
         PlayerPrefs.Save();
     }
-    public static void LoadOwernedHat()
+    public static void LoadOwenedHat()
     {
         if (PlayerPrefs.HasKey(PREF_KEY_OWENED_HAT))
         {
             string json = PlayerPrefs.GetString(PREF_KEY_OWENED_HAT);
-            owernedHats = JsonConvert.DeserializeObject<List<int>>(json);
+            owenedHats = JsonConvert.DeserializeObject<List<int>>(json);
         }
 
+    }
+
+    //Weapon
+    public static void BuyWp(WeaponId id)
+    {
+        if (owenedWps.Contains((int)id) == false)
+        {
+            owenedWps.Add((int)id);
+
+        }
+    }
+    public static bool IsOwenedWp(WeaponId id)
+    {
+        return owenedWps.Contains((int)id);
     }
 
     //public static void BuyHat()

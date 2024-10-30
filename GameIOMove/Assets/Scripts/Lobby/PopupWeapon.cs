@@ -15,18 +15,25 @@ public class PopupWeapon : MonoBehaviour
     public Button btClose;
     public Text txSellect;
     public Text txNameWp;
+    public Text txPrice;
 
     public Button leftButton;
     public Button rightButton;
+    public Button btBuy;
+
 
     private int currentIndex = -1;
     private const string strEquipped = "Equipped";
     private const string strSellect = "Sellect";
 
+    private WeaponId weaponSelectingId;
+    private WeaponData wpSelectingData;
+
     private void Awake()
     {
         currentIndex = 0;
         btClose.onClick.AddListener(ClickBtClose);
+        btBuy.onClick.AddListener(ClickBtBuyWp);
 
     }
     private void Start()
@@ -40,6 +47,7 @@ public class PopupWeapon : MonoBehaviour
     private void ClickBtClose()
     {
         gameObject.SetActive(false);
+        LobbyManager.Instance.player.ReloadDefaultOutfit();
     }
 
     private WeaponData currentWeapon;
@@ -70,6 +78,17 @@ public class PopupWeapon : MonoBehaviour
         txSellect.text = strEquipped;
         btSellect.enabled = false;
         currentWeapon = GameDataConstants.weapons[currentIndex];
+
+    }
+    private void ClickBtBuyWp()
+    {
+        if (GameDataUser.gold >= wpSelectingData.price)
+        {
+            GameDataUser.gold -= wpSelectingData.price;
+            PlayerPrefs.SetInt(GameDataUser.PREF_KEY_GOLD, GameDataUser.gold);
+            PlayerPrefs.Save();
+            GameDataUser.BuyWp(wpSelectingData.id);
+        }
     }
 
     // This method will be called to show the weapon details on the popup
@@ -79,18 +98,29 @@ public class PopupWeapon : MonoBehaviour
         for (int i = 0; i < GameDataConstants.weapons.Count; i++)
         {
             WeaponData weapon = GameDataConstants.weapons[i];
+
             if (i == index)
             {
                 currentIndex = i;
                 imgWeapon.sprite = weapon.icon;
-                txWeaponDamage.text = string.Format("Damage: {0}", weapon.damage.ToString());
-                txWeaponRange.text = string.Format("Range:  {0}", weapon.range.ToString());
+                txWeaponDamage.text = string.Format("Damage:{0}", weapon.damage.ToString());
+                txWeaponRange.text = string.Format("Range:{0}", weapon.range.ToString());
                 txNameWp.text = weapon.weaponName;
+                if (GameDataUser.gold >= weapon.price)
+                {
+                    txPrice.color = Color.black;
+                }
+                else
+                {
+                    txPrice.color = Color.red;
+                }
+                txPrice.text = weapon.price.ToString();
                 if (currentWeapon != weapon)
                 {
                     txSellect.text = strSellect;
                 }
-
+                wpSelectingData = weapon;
+                LobbyManager.Instance.player.EquipWeapon(weapon.id);
             }
         }
 

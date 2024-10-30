@@ -37,5 +37,8 @@ public class BoxHat : MonoBehaviour
         LobbyManager.Instance.player.EquipHat(data.hatId);
     }
 
-
+    public void CheckLock(bool isUnLock)
+    {
+        imgLock.gameObject.SetActive(isUnLock);
+    }
 }

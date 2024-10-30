@@ -73,7 +73,7 @@ public class Character : MonoBehaviour
     #endregion
 
     #region Functions
-    public void ReloadDefaultOutfit()
+    public virtual void ReloadDefaultOutfit()
     {
         EquipWeapon((WeaponId)GameDataUser.equippedWeapon);
 

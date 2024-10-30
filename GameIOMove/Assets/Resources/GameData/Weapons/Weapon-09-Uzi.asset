@@ -17,3 +17,4 @@ MonoBehaviour:
   icon: {fileID: 21300000, guid: 344190b4a34fea344b3b501047bdad40, type: 3}
   damage: 30
   range: 10
+  price: 777

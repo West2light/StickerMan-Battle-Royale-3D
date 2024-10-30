@@ -11,6 +11,7 @@ public class LobbyManager : Singleton<LobbyManager>
     public Button btWeapon;
     public PopupWeapon popupWeapon;
     public PopupSkin popupSkin;
+    public Text txGold;
 
     private void Awake()
     {
@@ -24,6 +25,7 @@ public class LobbyManager : Singleton<LobbyManager>
 
     private void Update()
     {
+        txGold.text = GameDataUser.gold.ToString();
         if (Input.GetKeyUp(KeyCode.G))
         {
             Debug.Log("goldHave=" + GameDataUser.gold);
@@ -31,14 +33,14 @@ public class LobbyManager : Singleton<LobbyManager>
 
         if (Input.GetKeyUp(KeyCode.A))
         {
-            int goldAdd = Random.Range(500, 2000);
+            int goldAdd = Random.Range(100, 1000);
             GameDataUser.AddGold(goldAdd);
             Debug.LogFormat("add={0}, goldHave={1}", goldAdd, GameDataUser.gold);
         }
 
         if (Input.GetKeyUp(KeyCode.C))
         {
-            int goldConsume = Random.Range(20, 100);
+            int goldConsume = Random.Range(100, 1000);
             GameDataUser.ConsumeGold(goldConsume);
             Debug.LogFormat("consume={0}, goldHave={1}", goldConsume, GameDataUser.gold);
         }
