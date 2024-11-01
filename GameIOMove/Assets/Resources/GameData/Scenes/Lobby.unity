@@ -1278,8 +1278,8 @@ RectTransform:
   - {fileID: 1080790084}
   - {fileID: 2118290811}
   - {fileID: 2126774226}
-  - {fileID: 1926659953}
   - {fileID: 1488249298}
+  - {fileID: 1926659953}
   - {fileID: 1602021129}
   m_Father: {fileID: 1918328007}
   m_RootOrder: 7
@@ -1305,6 +1305,7 @@ MonoBehaviour:
   txWeaponRange: {fileID: 634609458}
   txWeaponDamage: {fileID: 879798916}
   btSellect: {fileID: 1926659954}
+  btEquipped: {fileID: 1488249299}
   btClose: {fileID: 913525480}
   txSellect: {fileID: 1755655815}
   txNameWp: {fileID: 2031046802}
@@ -4688,7 +4689,7 @@ RectTransform:
   m_Children:
   - {fileID: 2068923061}
   m_Father: {fileID: 548320020}
-  m_RootOrder: 8
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0}
   m_AnchorMax: {x: 0.5, y: 0}
@@ -6532,7 +6533,7 @@ RectTransform:
   m_Children:
   - {fileID: 1755655814}
   m_Father: {fileID: 548320020}
-  m_RootOrder: 7
+  m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0}
   m_AnchorMax: {x: 0.5, y: 0}
@@ -6998,7 +6999,7 @@ GameObject:
   - component: {fileID: 2068923063}
   - component: {fileID: 2068923062}
   m_Layer: 5
-  m_Name: txSelect
+  m_Name: txEquipped
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

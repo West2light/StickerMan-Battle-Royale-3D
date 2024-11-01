@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using System.Linq;
+using System;
 
 public class PopupWeapon : MonoBehaviour
 {
@@ -12,6 +13,7 @@ public class PopupWeapon : MonoBehaviour
     public Text txWeaponRange;
     public Text txWeaponDamage;
     public Button btSellect;
+    public Button btEquipped;
     public Button btClose;
     public Text txSellect;
     public Text txNameWp;
@@ -23,10 +25,7 @@ public class PopupWeapon : MonoBehaviour
 
 
     private int currentIndex = -1;
-    private const string strEquipped = "Equipped";
-    private const string strSellect = "Sellect";
 
-    private WeaponId weaponSelectingId;
     private WeaponData wpSelectingData;
 
     private void Awake()
@@ -34,7 +33,6 @@ public class PopupWeapon : MonoBehaviour
         currentIndex = 0;
         btClose.onClick.AddListener(ClickBtClose);
         btBuy.onClick.AddListener(ClickBtBuyWp);
-
     }
     private void Start()
     {
@@ -68,18 +66,28 @@ public class PopupWeapon : MonoBehaviour
         {
             currentIndex = 0;
         }
-
         ShowWeaponDetails(currentIndex);
     }
 
     private void ClickBtSellect()
     {
+        if (wpSelectingData.id != (WeaponId)GameDataUser.equippedWeapon)
+        {
 
-        txSellect.text = strEquipped;
-        btSellect.enabled = false;
-        currentWeapon = GameDataConstants.weapons[currentIndex];
+            GameDataUser.equippedWeapon = (int)wpSelectingData.id;
+
+            PlayerPrefs.SetInt(GameDataUser.PREF_KEY_EQUIPPED_WEAPON, GameDataUser.equippedWeapon);
+            PlayerPrefs.Save();
+
+            btSellect.gameObject.SetActive(false);
+            btEquipped.gameObject.SetActive(true);
+            btEquipped.enabled = false;
+        }
 
     }
+
+
+
     private void ClickBtBuyWp()
     {
         if (GameDataUser.gold >= wpSelectingData.price)
@@ -87,7 +95,12 @@ public class PopupWeapon : MonoBehaviour
             GameDataUser.gold -= wpSelectingData.price;
             PlayerPrefs.SetInt(GameDataUser.PREF_KEY_GOLD, GameDataUser.gold);
             PlayerPrefs.Save();
-            GameDataUser.BuyWp(wpSelectingData.id);
+            GameDataUser.BuyWeapon(wpSelectingData.id);
+
+            //Change button buy -> select
+            btBuy.gameObject.SetActive(false);
+            btSellect.gameObject.SetActive(true);
+            CheckButton();
         }
     }
 
@@ -115,15 +128,47 @@ public class PopupWeapon : MonoBehaviour
                     txPrice.color = Color.red;
                 }
                 txPrice.text = weapon.price.ToString();
-                if (currentWeapon != weapon)
-                {
-                    txSellect.text = strSellect;
-                }
                 wpSelectingData = weapon;
                 LobbyManager.Instance.player.EquipWeapon(weapon.id);
             }
         }
+        CheckButton();
 
+    }
+    private void CheckButton()
+    {
+        bool isOwend = false;
+        for (int i = 0; i < GameDataUser.ownedWeapons.Count; i++)
+        {
+            if (wpSelectingData.id == (WeaponId)GameDataUser.ownedWeapons[i])
+            {
+                isOwend = true;
+                break;
+            }
+        }
+
+        if (wpSelectingData.id == (WeaponId)GameDataUser.equippedWeapon)
+        {
+            btBuy.gameObject.SetActive(false);
+            btSellect.gameObject.SetActive(false);
+            btEquipped.gameObject.SetActive(true);
+            btEquipped.enabled = false;
+        }
+        else
+        {
+            if (isOwend)
+            {
+                btBuy.gameObject.SetActive(false);
+                btSellect.gameObject.SetActive(true);
+                btEquipped.gameObject.SetActive(false);
+            }
+            else
+            {
+                btBuy.gameObject.SetActive(true);
+                btSellect.gameObject.SetActive(false);
+                btEquipped.gameObject.SetActive(false);
+            }
+        }
     }
 }
 

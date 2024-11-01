@@ -93,9 +93,9 @@ public class PopupHat : MonoBehaviour
             isUnLock = true; // Mặc định là khóa cho mỗi mũ
 
             // Kiểm tra xem mũ hiện tại có nằm trong danh sách sở hữu không
-            for (int i = 0; i < GameDataUser.owenedHats.Count; i++)
+            for (int i = 0; i < GameDataUser.ownedHats.Count; i++)
             {
-                if (hat.data.hatId == (HatId)GameDataUser.owenedHats[i]) // So sánh ID của mũ
+                if (hat.data.hatId == (HatId)GameDataUser.ownedHats[i]) // So sánh ID của mũ
                 {
                     isUnLock = false;
                     break;
@@ -135,18 +135,18 @@ public class PopupHat : MonoBehaviour
     private void CheckButtons()
     {
         // check hiển thị các nút
-        bool isOwernd = false;
+        bool isOwend = false;
 
-        for (int i = 0; i < GameDataUser.owenedHats.Count; i++)
+        for (int i = 0; i < GameDataUser.ownedHats.Count; i++)
         {
-            if (selectingHatId == (HatId)GameDataUser.owenedHats[i])
+            if (selectingHatId == (HatId)GameDataUser.ownedHats[i])
             {
-                isOwernd = true;
+                isOwend = true;
                 break;
             }
 
         }
-        if (isOwernd)
+        if (isOwend)
         {
             btBuy.gameObject.SetActive(false);
             btEquipped.gameObject.SetActive(true);

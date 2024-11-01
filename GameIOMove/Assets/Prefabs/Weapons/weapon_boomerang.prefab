@@ -45,7 +45,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1bbfdb57aa9ecb54a8e6bf682bd30d4b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  id: 5
+  id: 3
   prefabBullet: {fileID: 8176960522949510183, guid: a640158229b59734a98573698591a7cb, type: 3}
 --- !u!1001 &7561659730109849571
 PrefabInstance:

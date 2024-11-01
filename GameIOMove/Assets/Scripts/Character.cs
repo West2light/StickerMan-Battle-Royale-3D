@@ -49,6 +49,7 @@ public class Character : MonoBehaviour
     {
         rigidbodyCharacter = GetComponent<Rigidbody>();
         timerIdle = 0f;
+
     }
 
     protected virtual void Start()
