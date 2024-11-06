@@ -15,3 +15,4 @@ MonoBehaviour:
   id: 9
   name: Skull
   imagePant: {fileID: 21300000, guid: 25eaab120aefcd243b5c20ed406b1184, type: 3}
+  price: 6000

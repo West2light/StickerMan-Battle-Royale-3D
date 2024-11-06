@@ -15,3 +15,4 @@ MonoBehaviour:
   id: 6
   name: Pokemon
   imagePant: {fileID: 21300000, guid: a482b056a7db15c449864b0f6737a4cb, type: 3}
+  price: 8217

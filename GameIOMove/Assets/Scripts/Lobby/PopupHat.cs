@@ -8,22 +8,24 @@ public class PopupHat : MonoBehaviour
     public BoxHat prefabBoxhat;
     public Transform content;
     public Button btBuy;
+    public Button btEquip;
     public Button btEquipped;
     public Text txPriceHat;
 
     private HatId selectingHatId;
     private HatData selectingHatData;
     private List<BoxHat> hats = new List<BoxHat>();
-    private bool isUnLock;
 
 
     private void Awake()
     {
-        isUnLock = true;
         CreateHats();
         btBuy.onClick.AddListener(ClickBtBuyHat);
     }
-
+    private void Start()
+    {
+        btEquip.onClick.AddListener(ClickBtEquipp);
+    }
     private void OnEnable()
     {
         // Set selecting = mũ đang equipped, nếu không có thì = NONE
@@ -90,20 +92,33 @@ public class PopupHat : MonoBehaviour
         for (int j = 0; j < hats.Count; j++)
         {
             BoxHat hat = hats[j];
-            isUnLock = true; // Mặc định là khóa cho mỗi mũ
 
             // Kiểm tra xem mũ hiện tại có nằm trong danh sách sở hữu không
             for (int i = 0; i < GameDataUser.ownedHats.Count; i++)
             {
                 if (hat.data.hatId == (HatId)GameDataUser.ownedHats[i]) // So sánh ID của mũ
                 {
-                    isUnLock = false;
+                    hat.CheckLock(false);
                     break;
                 }
             }
 
-            // Gọi CheckLock với trạng thái của mũ (mở khóa hoặc khóa)
-            hat.CheckLock(isUnLock);
+
+        }
+    }
+    private void ClickBtEquipp()
+    {
+        if (selectingHatData.hatId != (HatId)GameDataUser.equippedHat)
+        {
+            GameDataUser.equippedHat = (int)selectingHatData.hatId;
+
+            PlayerPrefs.SetInt(GameDataUser.PREF_KEY_EQUIPPED_HAT, GameDataUser.equippedHat);
+            PlayerPrefs.Save();
+
+            btEquip.gameObject.SetActive(false);
+            btEquipped.gameObject.SetActive(true);
+            btEquipped.enabled = false;
+            ReloadInfo();
         }
     }
 
@@ -135,27 +150,52 @@ public class PopupHat : MonoBehaviour
     private void CheckButtons()
     {
         // check hiển thị các nút
-        bool isOwend = false;
+        bool isOwned = GameDataUser.IsOwnedHat(selectingHatId);
+        bool isEquipped = (selectingHatId == (HatId)GameDataUser.equippedHat);
 
-        for (int i = 0; i < GameDataUser.ownedHats.Count; i++)
+        if (isEquipped)
         {
-            if (selectingHatId == (HatId)GameDataUser.ownedHats[i])
-            {
-                isOwend = true;
-                break;
-            }
 
-        }
-        if (isOwend)
-        {
             btBuy.gameObject.SetActive(false);
+            btEquip.gameObject.SetActive(false);
             btEquipped.gameObject.SetActive(true);
+            btEquipped.enabled = false;
         }
         else
         {
-            btBuy.gameObject.SetActive(true);
-            btEquipped.gameObject.SetActive(false);
+            if (isOwned)
+            {
+                btBuy.gameObject.SetActive(false);
+                btEquip.gameObject.SetActive(true);
+                btEquipped.gameObject.SetActive(false);
+            }
+            else
+            {
+                btBuy.gameObject.SetActive(true);
+                btEquip.gameObject.SetActive(false);
+                btEquipped.gameObject.SetActive(false);
+            }
         }
+        //for (int i = 0; i < GameDataUser.ownedHats.Count; i++)
+        //{
+        //    if (selectingHatId == (HatId)GameDataUser.ownedHats[i])
+        //    {
+        //        isOwend = true;
+        //        break;
+        //    }
+
+        //}
+        //if (isOwend)
+        //{
+        //    btBuy.gameObject.SetActive(false);
+        //    btEquip.gameObject.SetActive(true);
+        //}
+        //else
+        //{
+        //    btBuy.gameObject.SetActive(true);
+        //    btEquip.gameObject.SetActive(false);
+
+        //}
 
     }
 
@@ -169,50 +209,5 @@ public class PopupHat : MonoBehaviour
             GameDataUser.BuyHat(selectingHatId);
             ReloadInfo();
         }
-
-        //    currentHatData = null;
-        //    BoxHat selectedHat = null;
-        //    for (int i = 0; i < hats.Count; i++)
-        //    {
-        //        BoxHat hat = hats[i];
-        //        if (hat.data.hatId == selectingHatId)
-        //        {
-        //            selectedHat = hat;
-        //            currentHatData = hat.data;
-        //            break;
-        //        }
-        //    }
-        //    bool isOwned = GameDataUser.IsOwnedHat(currentHatData.hatId);
-
-        //    if (isOwned)
-        //    {
-        //        if (selectedHat != null)
-        //        {
-        //            selectedHat.imgLock.gameObject.SetActive(false);
-        //        }
-        //        btBuy.gameObject.SetActive(false);
-        //    }
-        //    else
-        //    {
-        //        if (selectedHat != null)
-        //        {
-        //            selectedHat.imgLock.gameObject.SetActive(true);
-        //        }
-
-        //        txPriceHat.gameObject.SetActive(true);
-        //        txPriceHat.text = currentHatData.price.ToString();
-        //        btBuy.gameObject.SetActive(true);
-        //        GameDataUser.BuyHat();
-        //    }
-
-        //    for (int i = 0; i < GameDataUser.owernedHats.Count; i++)
-        //    {
-        //        HatData hatOwerned = new HatData();
-        //        hatOwerned.hatId = GameDataUser.owernedHats[i];
-        //        currentHatData = hatOwerned;
-        //    }
-
-        //}
-
     }
 }

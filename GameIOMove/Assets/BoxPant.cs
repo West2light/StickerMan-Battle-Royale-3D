@@ -32,4 +32,8 @@ public class BoxPant : MonoBehaviour
         popupPant.OnPantSelected(data.id);
         LobbyManager.Instance.player.EquipPant(data.id);
     }
+    public void CheckUnlock(bool isUnLock)
+    {
+        imgLock.gameObject.SetActive(imgLock);
+    }
 }

@@ -15,14 +15,15 @@ public static class GameDataUser
     public const string PREF_KEY_EQUIPPED_WEAPON = "equipped_weapon";
     public const string PREF_KEY_OWNED_WEAPON = "owned_weapon";
 
-    public const string PREF_KEY_EQUIPPED_PANT = "equipped_pant";
-
     public const string PREF_KEY_EQUIPPED_HAT = "equipped_hat";
     public const string PREF_KEY_OWNED_HAT = "owned_hat";
 
+    public const string PREF_KEY_OWNED_PANT = "owned_pant";
+    public const string PREF_KEY_EQUIPPED_PANT = "equipped_pant";
+
     public static List<int> ownedHats = new List<int>();
     public static List<int> ownedWeapons = new List<int>();
-
+    public static List<int> ownedPants = new List<int>();
     public static void Load()
     {
         gold = PlayerPrefs.GetInt(PREF_KEY_GOLD, 100);
@@ -31,7 +32,8 @@ public static class GameDataUser
         LoadOwnedWeapon();
 
         equippedHat = PlayerPrefs.GetInt(PREF_KEY_EQUIPPED_HAT);
-        equippedPant = PlayerPrefs.GetInt(PREF_KEY_EQUIPPED_PANT);
+        LoadOwnedHat();
+        equippedPant = PlayerPrefs.GetInt(PREF_KEY_EQUIPPED_PANT, (int)PantId.Batman);
     }
 
     public static void AddGold(int value)
@@ -84,6 +86,16 @@ public static class GameDataUser
         //    string json = PlayerPrefs.GetString(PREF_KEY_OWENED_HAT);
         //    owenedWps = JsonConvert.DeserializeObject<List<int>>(json);
         //}
+        string json = PlayerPrefs.GetString(PREF_KEY_OWNED_HAT);
+        if (string.IsNullOrEmpty(json))
+        {
+            ownedHats = new List<int>();
+            BuyHat(HatId.Cowboy);
+        }
+        else
+        {
+            ownedHats = JsonConvert.DeserializeObject<List<int>>(json);
+        }
     }
 
     //Weapon
@@ -116,4 +128,34 @@ public static class GameDataUser
         }
     }
 
+    //Pant
+    public static bool IsOwnedPant(PantId id)
+    {
+        return ownedPants.Contains((int)id);
+    }
+
+    public static void BuyPant(PantId pantId)
+    {
+        if (ownedPants.Contains((int)pantId) == false)
+        {
+            ownedPants.Add((int)pantId);
+
+            string json = JsonConvert.SerializeObject(ownedPants);
+            PlayerPrefs.SetString(PREF_KEY_OWNED_PANT, json);
+            PlayerPrefs.Save();
+        }
+    }
+    public static void LoadOwnedPant()
+    {
+        string json = PlayerPrefs.GetString(PREF_KEY_OWNED_PANT);
+        if (string.IsNullOrEmpty(json))
+        {
+            ownedPants = new List<int>();
+            BuyPant(PantId.Batman);
+        }
+        else
+        {
+            ownedPants = JsonConvert.DeserializeObject<List<int>>(json);
+        }
+    }
 }

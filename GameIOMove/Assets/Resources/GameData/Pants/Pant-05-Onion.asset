@@ -15,3 +15,4 @@ MonoBehaviour:
   id: 5
   name: Onion
   imagePant: {fileID: 21300000, guid: be770e2a4bda55147bff7cac14cb8b34, type: 3}
+  price: 3654

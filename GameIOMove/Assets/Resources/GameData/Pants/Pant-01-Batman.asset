@@ -15,3 +15,4 @@ MonoBehaviour:
   id: 1
   name: Batman
   imagePant: {fileID: 21300000, guid: 0806d2ad9e543b64dab8a6583c3b2039, type: 3}
+  price: 7773

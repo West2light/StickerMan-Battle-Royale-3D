@@ -7,4 +7,5 @@ public class PantData : ScriptableObject
     public PantId id;
     public string name;
     public Sprite imagePant;
+    public int price;
 }
