@@ -33,7 +33,8 @@ public static class GameDataUser
 
         equippedHat = PlayerPrefs.GetInt(PREF_KEY_EQUIPPED_HAT);
         LoadOwnedHat();
-        equippedPant = PlayerPrefs.GetInt(PREF_KEY_EQUIPPED_PANT, (int)PantId.Batman);
+        equippedPant = PlayerPrefs.GetInt(PREF_KEY_EQUIPPED_PANT);
+        LoadOwnedPant();
     }
 
     public static void AddGold(int value)

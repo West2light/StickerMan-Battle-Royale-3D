@@ -34,6 +34,6 @@ public class BoxPant : MonoBehaviour
     }
     public void CheckUnlock(bool isUnLock)
     {
-        imgLock.gameObject.SetActive(imgLock);
+        imgLock.gameObject.SetActive(isUnLock);
     }
 }

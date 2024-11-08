@@ -87,12 +87,18 @@ public class Character : MonoBehaviour
     {
         if (weaponId == WeaponId.None)
         {
+            if (usingWeapon != null)
+            {
+                Destroy(usingWeapon.gameObject);
+                usingWeapon = null;
+            }
             return;
         }
 
         for (int i = 0; i < weaponPrefabs.Length; i++)
         {
             BaseWeapon prefab = weaponPrefabs[i];
+
             if (prefab != null && prefab.id == weaponId)
             {
                 if (usingWeapon != null)
@@ -128,6 +134,11 @@ public class Character : MonoBehaviour
     {
         if (hatId == HatId.None)
         {
+            if (usingHat != null)
+            {
+                Destroy(usingHat.gameObject);
+                usingHat = null;
+            }
             return;
         }
         for (int i = 0; i < hatPrefabs.Length; i++)
@@ -161,6 +172,10 @@ public class Character : MonoBehaviour
     {
         if (pantId == PantId.None)
         {
+            if (skinnedMesh.material != null)
+            {
+                skinnedMesh.material = null;
+            }
             return;
         }
         for (int i = 0; i < pantPrefabs.Length; i++)
@@ -177,6 +192,7 @@ public class Character : MonoBehaviour
             }
 
         }
+
     }
     public virtual void ChangePant()
     {

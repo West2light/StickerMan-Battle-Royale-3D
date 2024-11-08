@@ -9,12 +9,18 @@ public class PopupSet : MonoBehaviour
 
     private List<BoxSet> sets = new List<BoxSet>();
 
-    public SkinSetId setIdSelecting;
+    public SkinSetId selectingSetID;
 
-    private void Start()
+    private void Awake()
     {
         CreateSet();
     }
+
+    private void OnEnable()
+    {
+        //LobbyManager.Instance.ChangePlayer(Ga);
+    }
+
     private void CreateSet()
     {
         for (int i = 0; i < GameDataConstants.sets.Count; i++)
@@ -32,12 +38,12 @@ public class PopupSet : MonoBehaviour
         for (int i = 0; i < sets.Count; i++)
         {
             BoxSet set = sets[i];
-            set.SetHightLight(setIdSelecting == set.data.setId);
+            set.SetHightLight(selectingSetID == set.data.setId);
         }
     }
     public void OnSetSelected(SkinSetId setId)
     {
-        setIdSelecting = setId;
+        selectingSetID = setId;
         CheckHightLight();
     }
 }

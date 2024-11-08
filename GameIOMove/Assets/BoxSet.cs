@@ -30,5 +30,6 @@ public class BoxSet : MonoBehaviour
     private void OnClick()
     {
         popupSet.OnSetSelected(data.setId);
+        LobbyManager.Instance.ChangePlayer(data.setId);
     }
 }

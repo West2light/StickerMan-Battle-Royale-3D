@@ -1,4 +1,4 @@
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -13,8 +13,25 @@ public class LobbyManager : Singleton<LobbyManager>
     public PopupSkin popupSkin;
     public Text txGold;
 
+    public List<Player> playerSkins = new List<Player>();
+    public Dictionary<SkinSetId, Player> playerMap;
+    public PopupSet set;
+
+    private void OnEnable()
+    {
+        playerMap = new Dictionary<SkinSetId, Player>
+        {
+            {SkinSetId.Angel, playerSkins[0]},
+            {SkinSetId.DeadPool, playerSkins[1]},
+            {SkinSetId.Devil, playerSkins[2]},
+            {SkinSetId.Thor, playerSkins[3]},
+            {SkinSetId.Witch, playerSkins[4]},
+        };
+    }
+
     private void Awake()
     {
+
         GameDataConstants.Load();
         GameDataUser.Load();
 
@@ -60,4 +77,25 @@ public class LobbyManager : Singleton<LobbyManager>
     {
         popupWeapon.gameObject.SetActive(true);
     }
+    public void ChangePlayer(SkinSetId id)
+    {
+        if (playerMap.ContainsKey(id) == false)
+        {
+            return;
+        }
+        for (int i = 0; i < playerMap.Count; i++)
+        {
+            playerMap[id].gameObject.SetActive(false);
+        }
+
+        if (player != null)
+        {
+            player.gameObject.SetActive(false);
+        }
+        player = playerMap[id];
+        playerMap[id].gameObject.SetActive(true);
+        playerMap[id].EquipHat((int)HatId.None);
+    }
+
 }
+

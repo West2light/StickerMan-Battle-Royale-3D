@@ -15,10 +15,23 @@ public class PopupPant : MonoBehaviour
 
     private PantId selectingPantId;
     private PantData selectingPantData;
-    private void Start()
+    private void OnEnable()
+    {
+        if (GameDataUser.equippedPant != null)
+        {
+            selectingPantId = (PantId)GameDataUser.equippedPant;
+        }
+        else
+        {
+            selectingPantId = PantId.None;
+        }
+        ReloadInfo();
+    }
+    private void Awake()
     {
         CreatePant();
         btBuy.onClick.AddListener(ClickBtBuy);
+        btEquip.onClick.AddListener(ClickBtEquip);
     }
 
     private void CheckHightLight()
@@ -43,7 +56,6 @@ public class PopupPant : MonoBehaviour
     public void OnPantSelected(PantId pantId)
     {
         selectingPantId = pantId;
-        //selectingPantData.id = selectingPantId;
         ReloadInfo();
     }
     private void ReloadInfo()
@@ -72,7 +84,22 @@ public class PopupPant : MonoBehaviour
             PlayerPrefs.Save();
 
             GameDataUser.BuyPant(selectingPantData.id);
+            ReloadInfo();
         }
+    }
+    private void ClickBtEquip()
+    {
+        if (selectingPantData.id != (PantId)GameDataUser.equippedPant)
+        {
+            GameDataUser.equippedPant = (int)selectingPantData.id;
+            PlayerPrefs.SetInt(GameDataUser.PREF_KEY_EQUIPPED_PANT, GameDataUser.equippedPant);
+            PlayerPrefs.Save();
+
+            btEquip.gameObject.SetActive(false);
+            btEquipped.gameObject.SetActive(true);
+            btEquipped.enabled = false;
+        }
+
     }
     private void SetPrice()
     {
@@ -112,6 +139,7 @@ public class PopupPant : MonoBehaviour
         }
 
     }
+
     private void CheckButton()
     {
         bool isOwnedPant = GameDataUser.IsOwnedPant(selectingPantId);
