@@ -10,6 +10,7 @@ public static class GameDataUser
     public static int equippedHat;
     public static int equippedWeapon;
     public static int equippedPant;
+    public static int equippedSkinSet;
     public const string PREF_KEY_GOLD = "gold";
 
     public const string PREF_KEY_EQUIPPED_WEAPON = "equipped_weapon";
@@ -21,9 +22,14 @@ public static class GameDataUser
     public const string PREF_KEY_OWNED_PANT = "owned_pant";
     public const string PREF_KEY_EQUIPPED_PANT = "equipped_pant";
 
+
+    public const string PREF_KEY_OWNED_SKINSET = "owned_skin_set";
+    public const string PREF_KEY_EQUIPPED_SKINSET = "equipped_skin_set";
+
     public static List<int> ownedHats = new List<int>();
     public static List<int> ownedWeapons = new List<int>();
     public static List<int> ownedPants = new List<int>();
+    public static List<int> ownedSkinSet = new List<int>();
     public static void Load()
     {
         gold = PlayerPrefs.GetInt(PREF_KEY_GOLD, 100);
@@ -33,8 +39,12 @@ public static class GameDataUser
 
         equippedHat = PlayerPrefs.GetInt(PREF_KEY_EQUIPPED_HAT);
         LoadOwnedHat();
+
         equippedPant = PlayerPrefs.GetInt(PREF_KEY_EQUIPPED_PANT);
         LoadOwnedPant();
+
+        equippedSkinSet = PlayerPrefs.GetInt(PREF_KEY_EQUIPPED_SKINSET);
+        LoadSkinSet();
     }
 
     public static void AddGold(int value)
@@ -66,12 +76,12 @@ public static class GameDataUser
         }
     }
 
-    public static void EquipHat(HatId id)
-    {
-        equippedHat = (int)id;
-        PlayerPrefs.SetInt(PREF_KEY_EQUIPPED_HAT, equippedHat);
-        PlayerPrefs.Save();
-    }
+    //public static void EquipHat(HatId id)
+    //{
+    //    equippedHat = (int)id;
+    //    PlayerPrefs.SetInt(PREF_KEY_EQUIPPED_HAT, equippedHat);
+    //    PlayerPrefs.Save();
+    //}
 
     private static void SaveOwendHat()
     {
@@ -157,6 +167,35 @@ public static class GameDataUser
         else
         {
             ownedPants = JsonConvert.DeserializeObject<List<int>>(json);
+        }
+    }
+    //Set
+    public static bool IsOwnedSkinSet(SkinSetId id)
+    {
+        return ownedSkinSet.Contains((int)id);
+    }
+    public static void BuySkinSet(SkinSetId skinSetId)
+    {
+        if (ownedSkinSet.Contains((int)skinSetId) == false)
+        {
+            ownedSkinSet.Add((int)skinSetId);
+
+            string json = JsonConvert.SerializeObject(ownedSkinSet);
+            PlayerPrefs.SetString(PREF_KEY_OWNED_SKINSET, json);
+            PlayerPrefs.Save();
+        }
+    }
+    public static void LoadSkinSet()
+    {
+        string json = PlayerPrefs.GetString(PREF_KEY_OWNED_SKINSET);
+        if (string.IsNullOrEmpty(json))
+        {
+            ownedSkinSet = new List<int>();
+            ownedSkinSet.Add((int)SkinSetId.Angel);
+        }
+        else
+        {
+            ownedSkinSet = JsonConvert.DeserializeObject<List<int>>(json);
         }
     }
 }

@@ -14,4 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   setId: 5
   sprSet: {fileID: 21300000, guid: 916eb971e2dc28b419a242fa6950df78, type: 3}
-  name: Witch
+  Name: 
+  price: 180

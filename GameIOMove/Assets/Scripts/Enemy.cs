@@ -10,9 +10,9 @@ public class Enemy : Character
     private Vector3 moveDestination;
     public float detectionRadius = 5f;
 
-    protected override void Start()
+    protected override void OnEnable()
     {
-        base.Start();
+        base.OnEnable();
         agent = GetComponent<NavMeshAgent>();
         TeamTag = "TeamB";
     }

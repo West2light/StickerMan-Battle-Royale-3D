@@ -12,9 +12,10 @@ public class Player : Character
 
     public float speed = 5f;
 
-    protected override void Start()
+    protected override void OnEnable()
     {
-        base.Start();
+
+        base.OnEnable();
         TeamTag = "TeamA";
     }
 

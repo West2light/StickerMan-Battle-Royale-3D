@@ -17,7 +17,7 @@ public class PopupSkin : MonoBehaviour
     public List<GameObject> popups;
     public SkinTab currentTab;
     public Button btExit;
-
+    public Player player;
     private void Awake()
     {
         Show(SkinTab.Pant);
@@ -27,15 +27,38 @@ public class PopupSkin : MonoBehaviour
     public void Show(SkinTab tab)
     {
         currentTab = tab;
-
+        if (currentTab != SkinTab.SkinSet)
+        {
+            player.ReloadDefaultOutfit();
+        }
         for (int i = 0; i < popups.Count; i++)
         {
             popups[i].SetActive(i == (int)currentTab);
+        }
+        if (popups[(int)SkinTab.SkinSet].activeSelf == false)
+        {
+            LobbyManager.Instance.player.gameObject.SetActive(false);
+            this.player.gameObject.SetActive(true);
+            LobbyManager.Instance.player = player;
+        }
+        else
+        {
+            return;
         }
     }
     public void DeactivePopupSkin()
     {
         gameObject.SetActive(false);
-        LobbyManager.Instance.player.ReloadDefaultOutfit();
+        if (GameDataUser.equippedSkinSet == (int)SkinSetId.None)
+        {
+            LobbyManager.Instance.player.gameObject.SetActive(false);
+            this.player.gameObject.SetActive(true);
+            LobbyManager.Instance.player = player;
+        }
+        else
+        {
+            LobbyManager.Instance.player.ReloadDefaultOutfit();
+        }
     }
+
 }

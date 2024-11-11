@@ -49,10 +49,9 @@ public class Character : MonoBehaviour
     {
         rigidbodyCharacter = GetComponent<Rigidbody>();
         timerIdle = 0f;
-
     }
 
-    protected virtual void Start()
+    protected virtual void OnEnable()
     {
         ReloadDefaultOutfit();
     }
@@ -132,6 +131,7 @@ public class Character : MonoBehaviour
 
     public virtual void EquipHat(HatId hatId)
     {
+        Debug.Log("EquipHat=" + hatId);
         if (hatId == HatId.None)
         {
             if (usingHat != null)
