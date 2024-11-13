@@ -26,13 +26,14 @@ public class LobbyManager : Singleton<LobbyManager>
             {SkinSetId.Thor, playerSkins[3]},
             {SkinSetId.Witch, playerSkins[4]},
         };
-        LobbyManager.Instance.player.ReloadDefaultOutfit();
+        player.ReloadDefaultOutfit();
+        ChangePlayer((SkinSetId)GameDataUser.equippedSkinSet);
     }
 
     private void Awake()
     {
-        GameDataConstants.Load();
         GameDataUser.Load();
+        GameDataConstants.Load();
 
         btPlay.onClick.AddListener(ClickBtPlay);
         btSkin.onClick.AddListener(ClickBtSkin);

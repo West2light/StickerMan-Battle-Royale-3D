@@ -32,4 +32,8 @@ public class BoxSet : MonoBehaviour
         popupSet.OnSetSelected(data.setId);
         LobbyManager.Instance.ChangePlayer(data.setId);
     }
+    public void CheckLock(bool isUnLock)
+    {
+        imgLock.gameObject.SetActive(isUnLock);
+    }
 }

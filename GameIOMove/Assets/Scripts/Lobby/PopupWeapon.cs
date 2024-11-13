@@ -45,7 +45,14 @@ public class PopupWeapon : MonoBehaviour
     private void ClickBtClose()
     {
         gameObject.SetActive(false);
-        LobbyManager.Instance.player.ReloadDefaultOutfit();
+        if (GameDataUser.equippedSkinSet != (int)SkinSetId.None)
+        {
+            LobbyManager.Instance.ChangePlayer((SkinSetId)GameDataUser.equippedSkinSet);
+        }
+        else
+        {
+            LobbyManager.Instance.player.ReloadDefaultOutfit();
+        }
     }
 
     private WeaponData currentWeapon;

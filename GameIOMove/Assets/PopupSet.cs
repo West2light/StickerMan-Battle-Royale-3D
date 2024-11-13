@@ -11,7 +11,6 @@ public class PopupSet : MonoBehaviour
     public Button btEquip;
     public Button btEquipped;
     public Text txGold;
-
     private List<BoxSet> sets = new List<BoxSet>();
 
     public SkinSetId selectingSetID;
@@ -37,6 +36,8 @@ public class PopupSet : MonoBehaviour
     {
         CreateSet();
         btBuy.onClick.AddListener(ClickButtonBuy);
+        btEquip.onClick.AddListener(ClickOnButtonEquip);
+        DeactiveSkinSet();
     }
     private void CreateSet()
     {
@@ -63,6 +64,7 @@ public class PopupSet : MonoBehaviour
         }
         CheckHightLight();
         CheckButton();
+        CheckUnlock();
         SetPrice();
     }
     private void CheckHightLight()
@@ -103,7 +105,8 @@ public class PopupSet : MonoBehaviour
     }
     private void ClickButtonBuy()
     {
-        if (GameDataUser.ownedSkinSet.Contains((int)selectingSetData.setId))
+
+        if (GameDataUser.ownedSkinSets.Contains((int)selectingSetData.setId))
         {
             return;
         }
@@ -112,9 +115,11 @@ public class PopupSet : MonoBehaviour
             GameDataUser.gold -= selectingSetData.price;
             PlayerPrefs.SetInt(GameDataUser.PREF_KEY_GOLD, GameDataUser.gold);
             PlayerPrefs.Save();
-            GameDataUser.ownedSkinSet.Add((int)selectingSetData.setId);
+            GameDataUser.BuySkinSet(selectingSetData.setId);
         }
-
+        btBuy.gameObject.SetActive(false);
+        btEquip.gameObject.SetActive(true);
+        CheckUnlock();
     }
     private void CheckButton()
     {
@@ -144,4 +149,43 @@ public class PopupSet : MonoBehaviour
             }
         }
     }
+    private void CheckUnlock()
+    {
+        for (int j = 0; j < sets.Count; j++)
+        {
+            BoxSet set = sets[j];
+            for (int i = 0; i < GameDataUser.ownedSkinSets.Count; i++)
+            {
+                if (GameDataUser.ownedSkinSets.Contains((int)set.data.setId))
+                {
+                    set.CheckLock(false);
+                    break;
+                }
+            }
+        }
+
+    }
+    private void ClickOnButtonEquip()
+    {
+        btEquip.gameObject.SetActive(false);
+        btEquipped.gameObject.SetActive(true);
+        btEquipped.enabled = false;
+
+        GameDataUser.equippedSkinSet = (int)selectingSetID;
+        PlayerPrefs.SetInt(GameDataUser.PREF_KEY_EQUIPPED_SKINSET, GameDataUser.equippedSkinSet);
+        PlayerPrefs.Save();
+
+        CheckUnlock();
+    }
+
+    public void DeactiveSkinSet()
+    {
+
+        for (int i = 1; i <= LobbyManager.Instance.playerMap.Count; i++)
+        {
+            LobbyManager.Instance.playerMap[(SkinSetId)i].gameObject.SetActive(false);
+        }
+    }
 }
+
+

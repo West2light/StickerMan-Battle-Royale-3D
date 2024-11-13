@@ -29,7 +29,7 @@ public static class GameDataUser
     public static List<int> ownedHats = new List<int>();
     public static List<int> ownedWeapons = new List<int>();
     public static List<int> ownedPants = new List<int>();
-    public static List<int> ownedSkinSet = new List<int>();
+    public static List<int> ownedSkinSets = new List<int>();
     public static void Load()
     {
         gold = PlayerPrefs.GetInt(PREF_KEY_GOLD, 100);
@@ -45,6 +45,12 @@ public static class GameDataUser
 
         equippedSkinSet = PlayerPrefs.GetInt(PREF_KEY_EQUIPPED_SKINSET);
         LoadSkinSet();
+
+        for (int i = 0; i < ownedSkinSets.Count; i++)
+        {
+
+            Debug.Log("NameSkinSet: " + ownedSkinSets[i]);
+        }
     }
 
     public static void AddGold(int value)
@@ -172,15 +178,15 @@ public static class GameDataUser
     //Set
     public static bool IsOwnedSkinSet(SkinSetId id)
     {
-        return ownedSkinSet.Contains((int)id);
+        return ownedSkinSets.Contains((int)id);
     }
     public static void BuySkinSet(SkinSetId skinSetId)
     {
-        if (ownedSkinSet.Contains((int)skinSetId) == false)
+        if (ownedSkinSets.Contains((int)skinSetId) == false)
         {
-            ownedSkinSet.Add((int)skinSetId);
+            ownedSkinSets.Add((int)skinSetId);
 
-            string json = JsonConvert.SerializeObject(ownedSkinSet);
+            string json = JsonConvert.SerializeObject(ownedSkinSets);
             PlayerPrefs.SetString(PREF_KEY_OWNED_SKINSET, json);
             PlayerPrefs.Save();
         }
@@ -190,12 +196,12 @@ public static class GameDataUser
         string json = PlayerPrefs.GetString(PREF_KEY_OWNED_SKINSET);
         if (string.IsNullOrEmpty(json))
         {
-            ownedSkinSet = new List<int>();
-            ownedSkinSet.Add((int)SkinSetId.Angel);
+            ownedSkinSets = new List<int>();
+            ownedSkinSets.Add((int)SkinSetId.Angel);
         }
         else
         {
-            ownedSkinSet = JsonConvert.DeserializeObject<List<int>>(json);
+            ownedSkinSets = JsonConvert.DeserializeObject<List<int>>(json);
         }
     }
 }

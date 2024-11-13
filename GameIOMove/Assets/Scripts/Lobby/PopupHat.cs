@@ -152,7 +152,11 @@ public class PopupHat : MonoBehaviour
         // check hiển thị các nút
         bool isOwned = GameDataUser.IsOwnedHat(selectingHatId);
         bool isEquipped = (selectingHatId == (HatId)GameDataUser.equippedHat);
+        if (GameDataUser.equippedSkinSet != (int)SkinSetId.None)
+        {
 
+
+        }
         if (isEquipped)
         {
 
