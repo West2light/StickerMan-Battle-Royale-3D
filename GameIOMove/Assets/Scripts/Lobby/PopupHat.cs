@@ -16,7 +16,6 @@ public class PopupHat : MonoBehaviour
     private HatData selectingHatData;
     private List<BoxHat> hats = new List<BoxHat>();
 
-
     private void Awake()
     {
         CreateHats();
@@ -29,8 +28,7 @@ public class PopupHat : MonoBehaviour
     private void OnEnable()
     {
         // Set selecting = mũ đang equipped, nếu không có thì = NONE
-
-        if (GameDataUser.equippedHat != null)
+        if (GameDataUser.equippedHat != (int)HatId.None)
         {
             selectingHatId = (HatId)GameDataUser.equippedHat;
 
@@ -75,6 +73,7 @@ public class PopupHat : MonoBehaviour
 
     public void OnHatSelected(HatId hatId)
     {
+        LobbyManager.Instance.popupSkin.ReloadDefaultSkin();
         selectingHatId = hatId;
         ReloadInfo();
     }
@@ -108,18 +107,21 @@ public class PopupHat : MonoBehaviour
     }
     private void ClickBtEquipp()
     {
-        if (selectingHatData.hatId != (HatId)GameDataUser.equippedHat)
-        {
-            GameDataUser.equippedHat = (int)selectingHatData.hatId;
+        //if (selectingHatData.hatId != (HatId)GameDataUser.equippedHat)
+        //{
+        GameDataUser.equippedSkinSet = (int)SkinSetId.None;
+        PlayerPrefs.SetInt(GameDataUser.PREF_KEY_EQUIPPED_SKINSET, GameDataUser.equippedSkinSet);
+        PlayerPrefs.Save();
 
-            PlayerPrefs.SetInt(GameDataUser.PREF_KEY_EQUIPPED_HAT, GameDataUser.equippedHat);
-            PlayerPrefs.Save();
+        GameDataUser.equippedHat = (int)selectingHatData.hatId;
+        PlayerPrefs.SetInt(GameDataUser.PREF_KEY_EQUIPPED_HAT, GameDataUser.equippedHat);
+        PlayerPrefs.Save();
 
-            btEquip.gameObject.SetActive(false);
-            btEquipped.gameObject.SetActive(true);
-            btEquipped.enabled = false;
-            ReloadInfo();
-        }
+        btEquip.gameObject.SetActive(false);
+        btEquipped.gameObject.SetActive(true);
+        btEquipped.enabled = false;
+        ReloadInfo();
+        //}
     }
 
     private void SetPrice()
@@ -154,8 +156,7 @@ public class PopupHat : MonoBehaviour
         bool isEquipped = (selectingHatId == (HatId)GameDataUser.equippedHat);
         if (GameDataUser.equippedSkinSet != (int)SkinSetId.None)
         {
-
-
+            isEquipped = false;
         }
         if (isEquipped)
         {

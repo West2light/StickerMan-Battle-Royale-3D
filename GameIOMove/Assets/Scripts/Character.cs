@@ -115,9 +115,7 @@ public class Character : MonoBehaviour
             }
         }
 
-
     }
-
     public virtual void ChangeWeapon()
     {
         int randomIndex = Random.Range(0, weaponPrefabs.Length);
@@ -192,7 +190,6 @@ public class Character : MonoBehaviour
             }
 
         }
-
     }
     public virtual void ChangePant()
     {

@@ -15,7 +15,7 @@ public class LobbyManager : Singleton<LobbyManager>
 
     public List<Player> playerSkins = new List<Player>();
     public Dictionary<SkinSetId, Player> playerMap;
-    public PopupSet set;
+
     private void OnEnable()
     {
         playerMap = new Dictionary<SkinSetId, Player>
@@ -26,8 +26,14 @@ public class LobbyManager : Singleton<LobbyManager>
             {SkinSetId.Thor, playerSkins[3]},
             {SkinSetId.Witch, playerSkins[4]},
         };
-        player.ReloadDefaultOutfit();
-        ChangePlayer((SkinSetId)GameDataUser.equippedSkinSet);
+        if (GameDataUser.equippedSkinSet != (int)SkinSetId.None)
+        {
+            ChangePlayer((SkinSetId)GameDataUser.equippedSkinSet);
+        }
+        else
+        {
+            player.ReloadDefaultOutfit();
+        }
     }
 
     private void Awake()

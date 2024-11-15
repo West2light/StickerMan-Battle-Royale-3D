@@ -19,12 +19,14 @@ public class GameController : Singleton<GameController>
     public Player[] characterVariants; // Mảng chứa các prefab variant của nhân vật
     private Player currentCharacter;   // Nhân vật hiện tại
 
-    // Start is called before the first frame update
-    private void Start()
+    private void OnEnable()
     {
         GameDataConstants.Load();
         CreatePlayer();
         CreateEnemy();
+    }
+    private void Start()
+    {
     }
 
 

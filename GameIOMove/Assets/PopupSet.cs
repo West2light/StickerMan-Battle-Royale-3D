@@ -20,7 +20,7 @@ public class PopupSet : MonoBehaviour
     {
         // Set selecting = mũ đang equipped, nếu không có thì = NONE
 
-        if (GameDataUser.equippedSkinSet != null)
+        if (GameDataUser.equippedSkinSet != (int)SkinSetId.None)
         {
             selectingSetID = (SkinSetId)GameDataUser.equippedSkinSet;
 
@@ -29,7 +29,6 @@ public class PopupSet : MonoBehaviour
         {
             selectingSetID = SkinSetId.None;
         }
-
         ReloadInfo();
     }
     private void Awake()
@@ -78,6 +77,7 @@ public class PopupSet : MonoBehaviour
     public void OnSetSelected(SkinSetId setId)
     {
         selectingSetID = setId;
+        LobbyManager.Instance.ChangePlayer((SkinSetId)GameDataUser.equippedSkinSet);
         ReloadInfo();
         CheckHightLight();
     }
@@ -125,6 +125,10 @@ public class PopupSet : MonoBehaviour
     {
         bool isOwnedSkinSet = GameDataUser.IsOwnedSkinSet(selectingSetID);
         bool isEquipped = (selectingSetID == (SkinSetId)GameDataUser.equippedSkinSet);
+        if (GameDataUser.equippedSkinSet == (int)SkinSetId.None)
+        {
+            isEquipped = false;
+        }
         if (isEquipped)
         {
             btBuy.gameObject.SetActive(false);
@@ -167,6 +171,12 @@ public class PopupSet : MonoBehaviour
     }
     private void ClickOnButtonEquip()
     {
+        //GameDataUser.equippedHat = (int)HatId.None;
+        //PlayerPrefs.SetInt(GameDataUser.PREF_KEY_EQUIPPED_HAT, GameDataUser.equippedHat);
+        //PlayerPrefs.Save();
+        //GameDataUser.equippedPant = (int)PantId.None;
+        //PlayerPrefs.SetInt(GameDataUser.PREF_KEY_EQUIPPED_PANT, GameDataUser.equippedPant);
+        //PlayerPrefs.Save();
         btEquip.gameObject.SetActive(false);
         btEquipped.gameObject.SetActive(true);
         btEquipped.enabled = false;

@@ -17,7 +17,7 @@ public class PopupPant : MonoBehaviour
     private PantData selectingPantData;
     private void OnEnable()
     {
-        if (GameDataUser.equippedPant != null)
+        if (GameDataUser.equippedPant != (int)PantId.None)
         {
             selectingPantId = (PantId)GameDataUser.equippedPant;
         }
@@ -55,6 +55,7 @@ public class PopupPant : MonoBehaviour
     }
     public void OnPantSelected(PantId pantId)
     {
+        LobbyManager.Instance.popupSkin.ReloadDefaultSkin();
         selectingPantId = pantId;
         ReloadInfo();
     }
@@ -89,16 +90,19 @@ public class PopupPant : MonoBehaviour
     }
     private void ClickBtEquip()
     {
-        if (selectingPantData.id != (PantId)GameDataUser.equippedPant)
-        {
-            GameDataUser.equippedPant = (int)selectingPantData.id;
-            PlayerPrefs.SetInt(GameDataUser.PREF_KEY_EQUIPPED_PANT, GameDataUser.equippedPant);
-            PlayerPrefs.Save();
+        //if (selectingPantData.id != (PantId)GameDataUser.equippedPant)
+        //{
+        GameDataUser.equippedSkinSet = (int)SkinSetId.None;
+        PlayerPrefs.SetInt(GameDataUser.PREF_KEY_EQUIPPED_SKINSET, GameDataUser.equippedSkinSet);
+        PlayerPrefs.Save();
+        GameDataUser.equippedPant = (int)selectingPantData.id;
+        PlayerPrefs.SetInt(GameDataUser.PREF_KEY_EQUIPPED_PANT, GameDataUser.equippedPant);
+        PlayerPrefs.Save();
 
-            btEquip.gameObject.SetActive(false);
-            btEquipped.gameObject.SetActive(true);
-            btEquipped.enabled = false;
-        }
+        btEquip.gameObject.SetActive(false);
+        btEquipped.gameObject.SetActive(true);
+        btEquipped.enabled = false;
+        //}
 
     }
     private void SetPrice()
@@ -144,6 +148,10 @@ public class PopupPant : MonoBehaviour
     {
         bool isOwnedPant = GameDataUser.IsOwnedPant(selectingPantId);
         bool isEquipped = (selectingPantId == (PantId)GameDataUser.equippedPant);
+        if (GameDataUser.equippedSkinSet != (int)SkinSetId.None)
+        {
+            isEquipped = false;
+        }
         if (isEquipped)
         {
             btBuy.gameObject.SetActive(false);
@@ -167,4 +175,5 @@ public class PopupPant : MonoBehaviour
             }
         }
     }
+
 }
