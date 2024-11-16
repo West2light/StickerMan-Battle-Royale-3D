@@ -15,14 +15,14 @@ public enum BehaviourState
 public class Character : MonoBehaviour
 {
     public Animator animator;
-    public float attackRange = 5f;
     public BehaviourState state = BehaviourState.Idle;
     public float timerIdle;
+    public float timerDead;
     public BaseWeapon[] weaponPrefabs;
     public BaseHat[] hatPrefabs;
     public BasePant[] pantPrefabs;
     public SkinnedMeshRenderer skinnedMesh;
-
+    public float rangeAttack = 10f;
     public bool isRunning;
     public Rigidbody rigidbodyCharacter;
     public BaseWeapon usingWeapon;
@@ -49,6 +49,7 @@ public class Character : MonoBehaviour
     {
         rigidbodyCharacter = GetComponent<Rigidbody>();
         timerIdle = 0f;
+        timerDead = 0f;
     }
 
     protected virtual void OnEnable()
@@ -295,6 +296,7 @@ public class Character : MonoBehaviour
     {
         state = BehaviourState.Dead;
         animator.SetTrigger(ANIM_TRIGGER_DEAD);
+
     }
     #endregion
 

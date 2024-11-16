@@ -12,6 +12,7 @@ public class BaseWeapon : MonoBehaviour
         BaseBullet bullet = Instantiate(prefabBullet);
         bullet.transform.position = shooter.throwPoint.position;
         bullet.transform.rotation = shooter.transform.rotation;
+        bullet.distanceToDestroy = shooter.rangeAttack;
         bullet.shooter = shooter;
     }
 }

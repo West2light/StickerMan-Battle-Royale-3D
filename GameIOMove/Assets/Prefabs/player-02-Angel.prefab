@@ -305,7 +305,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 600109666579050748, guid: 2afac7e8336c47f4291d4be04a04a758, type: 3}
       propertyPath: m_Name
-      value: player-02 -Angel
+      value: player-02-Angel
       objectReference: {fileID: 0}
     - target: {fileID: 1086179710439117911, guid: 2afac7e8336c47f4291d4be04a04a758, type: 3}
       propertyPath: m_Materials.Array.data[0]
@@ -316,6 +316,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6017053360968032467, guid: 2afac7e8336c47f4291d4be04a04a758, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6677217141300192305, guid: 2afac7e8336c47f4291d4be04a04a758, type: 3}
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}

@@ -9,9 +9,9 @@ public class BaseBullet : MonoBehaviour
     public Transform model;
     public float speedMove = 5f;
     public float speedTurn = 100f;
-    //public float distanceToDestroy = 4f;
+    public float distanceToDestroy;
     public Rigidbody rb;
-    private Vector3 beginPosition;
+
 
     public Character shooter;
 
@@ -19,12 +19,11 @@ public class BaseBullet : MonoBehaviour
     private void Awake()
     {
         rb = GetComponent<Rigidbody>();  // Lấy Rigidbody của viên đạn
-
     }
     private void Update()
     {
         Move();
-        // TrackingDeactive();
+        TrackingDeactive();
 
     }
     private void Move()
@@ -45,7 +44,11 @@ public class BaseBullet : MonoBehaviour
 
     public void OnTriggerEnter(Collider other)
     {
-
+        if (shooter == null)
+        {
+            Deactive();
+            return;
+        }
         if (shooter.CompareTag(other.transform.root.tag) == false)
         {
             Character targetCharacter = other.GetComponentInParent<Character>();
@@ -58,15 +61,15 @@ public class BaseBullet : MonoBehaviour
         }
     }
 
-    /*private void TrackingDeactive()
+    private void TrackingDeactive()
     {
-        float distanceMoved = Vector3.Distance(beginPosition, transform.position);
+        float distanceMoved = Vector3.Distance(shooter.transform.position, transform.position);
         if (distanceMoved >= distanceToDestroy)
         {
             Deactive();
         }
     }
-*/
+
 
     public void Deactive()
     {

@@ -2,14 +2,14 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
-
+using UnityEngine.UI;
 
 public class Enemy : Character
 {
     private NavMeshAgent agent;
     private Vector3 moveDestination;
-    public float detectionRadius = 5f;
-
+    public float detectionRadius;
+    public Image imgTargetPoint;
     protected override void OnEnable()
     {
         base.OnEnable();
@@ -52,11 +52,15 @@ public class Enemy : Character
 
                 for (int i = 0; i < colliders.Length; i++)
                 {
-                    if (GameController.Instance.player.CompareTag(colliders[i].transform.root.tag))
+                    if (GameController.Instance.currentPlayer.CompareTag(colliders[i].transform.root.tag))
                     {
-                        RotateToward(GameController.Instance.player);
-                        ChangeState(BehaviourState.Attack);
-                        return;
+                        float distanceToTarget = Vector3.Distance(transform.position, colliders[i].transform.position);
+                        if (distanceToTarget <= rangeAttack)
+                        {
+                            RotateToward(GameController.Instance.currentPlayer);
+                            ChangeState(BehaviourState.Attack);
+                            return;
+                        }
                     }
                 }
             }
@@ -84,14 +88,7 @@ public class Enemy : Character
         newPosition.z = Mathf.Clamp(newPosition.z, minZ, maxZ);
 
 
-        //float distance = Random.Range(5f, 10f);
-        //Vector2 randomCircle = Random.insideUnitCircle * distance;
 
-        //float v_RandomX = Mathf.Clamp(v.x + randomCircle.x, minX, maxX);
-        //float v_RandomZ = Mathf.Clamp(v.z + randomCircle.y, minZ, maxZ);
-
-        //Vector3 newPosition = new Vector3(v_RandomX, transform.position.y, v_RandomZ);
-        //Debug.LogFormat("randomPos={0}, distance={1}", newPosition, Vector3.Distance(newPosition, transform.position));
 
         NavMeshHit hit;
         if (NavMesh.SamplePosition(newPosition, out hit, 5.0f, NavMesh.AllAreas))
@@ -110,10 +107,7 @@ public class Enemy : Character
         return v;
     }
 
-    protected override void RotateToward(Character targetShooter)
-    {
-        base.RotateToward(targetShooter);
-    }
+
 
     protected override void BeginRun()
     {
@@ -132,6 +126,29 @@ public class Enemy : Character
             }
         }
     }
+    protected override void Dead()
+    {
+        base.Dead();
+        if (this.state == BehaviourState.Dead)
+        {
+            gameObject.SetActive(false);
+            GameDataUser.point += 1;
+            Debug.Log("point= " + GameDataUser.point);
+            PlayerPrefs.SetInt(GameDataUser.PREF_KEY_POINT, GameDataUser.point);
+            PlayerPrefs.Save();
+            timerDead += Time.deltaTime;
+            if (timerDead >= 5f)
+            {
+                gameObject.SetActive(false);
+            }
+        }
+    }
+    public void CheckTargetPoint(bool isTarget)
+    {
+        imgTargetPoint.gameObject.SetActive(isTarget);
+        imgTargetPoint.color = Color.gray;
+    }
+
 }
 
 

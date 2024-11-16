@@ -1,4 +1,4 @@
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -8,6 +8,8 @@ public class Player : Character
     private float inputVertical;
     private float inputHorizontal;
 
+
+    public RectTransform rangeUI;
     public Joystick joystick;
 
     public float speed = 5f;
@@ -24,6 +26,8 @@ public class Player : Character
         base.Update();
         CheckInput();
         UpdateDance();
+        CheckTargetNearestEnemy(GameController.Instance.enemyInstance);
+        UpdateRange();
         UpdateRun();
         //if (isAttacking)
         //{
@@ -118,7 +122,7 @@ public class Player : Character
 
             if (Input.GetKeyDown(KeyCode.Space))
             {
-                RotateToward(GameController.Instance.enemy);
+                RotateToward(GameController.Instance.enemyInstance);
                 ChangeState(BehaviourState.Attack);
                 return;
             }
@@ -159,6 +163,31 @@ public class Player : Character
         base.BeginAttack();
         isAttacking = false;
     }
+    private void UpdateRange()
+    {
+        if (rangeUI != null && Camera.main != null)
+        {
+            rangeUI.sizeDelta = new Vector2(rangeAttack * 2f, rangeAttack * 2f);
+        }
+    }
+    private void CheckTargetNearestEnemy(Enemy enemy)
+    {
+        Enemy nearestEnemy = null;
+        float shortestDistance = Mathf.Infinity;
+        for (int i = 0; i < GameController.Instance.enemies.Count; i++)
+        {
+            float distanceTaget = Vector3.Distance(transform.position, GameController.Instance.enemies[i].transform.position);
+            if (distanceTaget < shortestDistance)
+            {
+                shortestDistance = distanceTaget;
+                nearestEnemy = GameController.Instance.enemies[i];
+                nearestEnemy.CheckTargetPoint(distanceTaget <= rangeAttack);
+            }
+        }
+        if (nearestEnemy != null)
+        {
+            RotateToward(nearestEnemy);
+        }
 
-
+    }
 }

@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class GameController : Singleton<GameController>
 {
-    public Player player;
     public BaseWeapon wp;
     public Transform playerSpawn;
     public Joystick joystick;
@@ -16,17 +15,20 @@ public class GameController : Singleton<GameController>
     public Transform maxX;
     public Transform maxZ;
 
-    public Player[] characterVariants; // Mảng chứa các prefab variant của nhân vật
-    private Player currentCharacter;   // Nhân vật hiện tại
+    public Player[] playerVariants; // Mảng chứa các prefab variant của nhân vật
+    public List<Enemy> enemies = new List<Enemy>();
+    public Player currentPlayer;   // Nhân vật hiện tại
+    public Enemy enemyInstance;
 
     private void OnEnable()
     {
         GameDataConstants.Load();
-        CreatePlayer();
-        CreateEnemy();
+        GameDataUser.Load();
     }
     private void Start()
     {
+        CreatePlayer();
+        CreateEnemy();
     }
 
 
@@ -94,17 +96,18 @@ public class GameController : Singleton<GameController>
     private void CreatePlayer()
     {
         // Tạo nhân vật đầu tiên từ characterVariants
-        if (characterVariants.Length > 0)
+        if (playerVariants.Length > 0)
         {
-            currentCharacter = Instantiate(characterVariants[0], playerSpawn.position, Quaternion.identity); // Spawn nhân vật
-            currentCharacter.tag = "TeamA";
-            currentCharacter.SetJoystick(joystick); // Thiết lập joystick cho nhân vật
+            currentPlayer = Instantiate(playerVariants[0], playerSpawn.position, Quaternion.identity); // Spawn nhân vật
+            currentPlayer.tag = "TeamA";
+            currentPlayer.SetJoystick(joystick); // Thiết lập joystick cho nhân vật
             // Thiết lập camera theo dõi nhân vật
-            if (Camera.main != null && currentCharacter != null)
+            if (Camera.main != null && currentPlayer != null)
             {
-                CameraController.Instance.SetTarget(currentCharacter.transform);
+                CameraController.Instance.SetTarget(currentPlayer.transform);
             }
         }
+
     }
 
     private void Update()
@@ -139,41 +142,48 @@ public class GameController : Singleton<GameController>
     private void ChangeCharacter(int index)
     {
         // Kiểm tra index có hợp lệ không
-        if (index < characterVariants.Length)
+        if (index < playerVariants.Length)
         {
 
             // Lưu vị trí và hướng của nhân vật hiện tại
-            Vector3 currentPosition = currentCharacter.transform.position;
-            Quaternion currentRotation = currentCharacter.transform.rotation;
+            Vector3 currentPosition = currentPlayer.transform.position;
+            Quaternion currentRotation = currentPlayer.transform.rotation;
 
             // Xóa nhân vật hiện tại
-            if (currentCharacter != null)
+            if (currentPlayer != null)
             {
-                Destroy(currentCharacter.gameObject);
+                Destroy(currentPlayer.gameObject);
             }
 
             // Tạo nhân vật mới từ prefab variant
-            currentCharacter = Instantiate(characterVariants[index], currentPosition, currentRotation);
-            currentCharacter.tag = "TeamA";
-            currentCharacter.SetJoystick(joystick); // Thiết lập joystick
+            currentPlayer = Instantiate(playerVariants[index], currentPosition, currentRotation);
+            currentPlayer.tag = "TeamA";
+            currentPlayer.SetJoystick(joystick); // Thiết lập joystick
 
-            if (index != 0)
-            {
-                currentCharacter.headTransform = null;
-            }
+
+
 
             // Cập nhật camera theo dõi nhân vật mới
             if (Camera.main != null)
             {
-                CameraController.Instance.SetTarget(currentCharacter.transform);
+                CameraController.Instance.SetTarget(currentPlayer.transform);
             }
         }
     }
 
     private void CreateEnemy()
     {
-        enemy = Instantiate(enemy);
-        enemy.tag = "TeamB";
-        enemy.transform.position = enemySpawn.position;
+
+        for (int i = 0; i < 5; i++)
+        {
+            enemySpawn.position = new Vector3(
+                Random.RandomRange(currentPlayer.transform.position.x + Random.Range(5, 10), currentPlayer.transform.position.x + Random.Range(20, 40)),
+                0f,
+                Random.RandomRange(currentPlayer.transform.position.z + Random.Range(5, 10), currentPlayer.transform.position.z + Random.Range(20, 40)));
+            enemyInstance = Instantiate(enemy, enemySpawn.position, Quaternion.identity);
+            enemyInstance.tag = "TeamB";
+            enemies.Add(enemyInstance);
+        }
+        // enemyInstance.transform.position = enemySpawn.position;
     }
 }
