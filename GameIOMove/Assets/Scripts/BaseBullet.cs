@@ -52,7 +52,7 @@ public class BaseBullet : MonoBehaviour
         if (shooter.CompareTag(other.transform.root.tag) == false)
         {
             Character targetCharacter = other.GetComponentInParent<Character>();
-            if (targetCharacter != null)
+            if (targetCharacter != null && targetCharacter.enabled == true)
             {
                 float damage = shooter.heal / 3f;
                 targetCharacter.TakeDamage(damage);

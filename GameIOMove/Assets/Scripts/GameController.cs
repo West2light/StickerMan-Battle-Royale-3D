@@ -18,13 +18,13 @@ public class GameController : Singleton<GameController>
     public Player[] playerVariants; // Mảng chứa các prefab variant của nhân vật
     public List<Enemy> enemies = new List<Enemy>();
     public Player currentPlayer;   // Nhân vật hiện tại
-    public Enemy enemyInstance;
 
     private void OnEnable()
     {
         GameDataConstants.Load();
         GameDataUser.Load();
     }
+
     private void Start()
     {
         CreatePlayer();
@@ -174,13 +174,14 @@ public class GameController : Singleton<GameController>
     private void CreateEnemy()
     {
 
-        for (int i = 0; i < 5; i++)
+        for (int i = 0; i < 2; i++)
         {
             enemySpawn.position = new Vector3(
-                Random.RandomRange(currentPlayer.transform.position.x + Random.Range(5, 10), currentPlayer.transform.position.x + Random.Range(20, 40)),
+                Random.Range(currentPlayer.transform.position.x + Random.Range(5, 10), currentPlayer.transform.position.x + Random.Range(20, 40)),
                 0f,
-                Random.RandomRange(currentPlayer.transform.position.z + Random.Range(5, 10), currentPlayer.transform.position.z + Random.Range(20, 40)));
-            enemyInstance = Instantiate(enemy, enemySpawn.position, Quaternion.identity);
+                Random.Range(currentPlayer.transform.position.z + Random.Range(5, 10), currentPlayer.transform.position.z + Random.Range(20, 40)));
+
+            Enemy enemyInstance = Instantiate(enemy, enemySpawn.position, Quaternion.identity);
             enemyInstance.tag = "TeamB";
             enemies.Add(enemyInstance);
         }

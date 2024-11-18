@@ -50,11 +50,6 @@ public static class GameDataUser
         equippedSkinSet = PlayerPrefs.GetInt(PREF_KEY_EQUIPPED_SKINSET);
         LoadSkinSet();
 
-        for (int i = 0; i < ownedSkinSets.Count; i++)
-        {
-
-            Debug.Log("NameSkinSet: " + ownedSkinSets[i]);
-        }
     }
 
     public static void AddGold(int value)

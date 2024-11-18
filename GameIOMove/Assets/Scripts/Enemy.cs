@@ -16,6 +16,7 @@ public class Enemy : Character
         agent = GetComponent<NavMeshAgent>();
         TeamTag = "TeamB";
     }
+
     //protected override void FixedUpdate()
     //{
     //    base.FixedUpdate();
@@ -25,10 +26,17 @@ public class Enemy : Character
     public override void ChangeState(BehaviourState newState)
     {
         base.ChangeState(newState);
+        if (agent != null && agent.isActiveAndEnabled)
+        {
+            agent.isStopped = (newState != BehaviourState.Run);
+        }
 
-        agent.isStopped = (newState != BehaviourState.Run);
     }
-
+    //private IEnumerator HandleDeadth()
+    //{
+    //    yield return new WaitForSeconds(0.5f);
+    //    gameObject.SetActive(false);
+    //}
     protected override void UpdateIdle()
     {
 
@@ -132,10 +140,19 @@ public class Enemy : Character
         if (this.state == BehaviourState.Dead)
         {
             gameObject.SetActive(false);
+
+
+            //int point = PlayerPrefs.GetInt(GameDataUser.PREF_KEY_POINT, 0);
+            //point += 1;
+
             GameDataUser.point += 1;
             Debug.Log("point= " + GameDataUser.point);
+
             PlayerPrefs.SetInt(GameDataUser.PREF_KEY_POINT, GameDataUser.point);
             PlayerPrefs.Save();
+
+            GameController.Instance.currentPlayer.UpdateScore();
+
             timerDead += Time.deltaTime;
             if (timerDead >= 5f)
             {

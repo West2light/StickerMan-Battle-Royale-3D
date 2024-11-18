@@ -1,17 +1,19 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using UnityEngine.UI;
+using TMPro;
 
 public class Player : Character
 {
     private float inputVertical;
     private float inputHorizontal;
-
+    private float durationFloatingScore;
 
     public RectTransform rangeUI;
     public Joystick joystick;
-
+    public TMP_Text txPoint;
+    public TMP_Text txAddPoint;
     public float speed = 5f;
 
     protected override void OnEnable()
@@ -19,6 +21,16 @@ public class Player : Character
 
         base.OnEnable();
         TeamTag = "TeamA";
+
+    }
+    private void Awake()
+    {
+        durationFloatingScore = 0f;
+    }
+    private void Start()
+    {
+        txPoint.text = GameDataUser.point.ToString();
+        UpdateScore();
     }
 
     protected override void Update()
@@ -26,7 +38,7 @@ public class Player : Character
         base.Update();
         CheckInput();
         UpdateDance();
-        CheckTargetNearestEnemy(GameController.Instance.enemyInstance);
+        CheckNearestEnemy();
         UpdateRange();
         UpdateRun();
         //if (isAttacking)
@@ -122,7 +134,7 @@ public class Player : Character
 
             if (Input.GetKeyDown(KeyCode.Space))
             {
-                RotateToward(GameController.Instance.enemyInstance);
+                CheckNearestEnemy();
                 ChangeState(BehaviourState.Attack);
                 return;
             }
@@ -170,7 +182,7 @@ public class Player : Character
             rangeUI.sizeDelta = new Vector2(rangeAttack * 2f, rangeAttack * 2f);
         }
     }
-    private void CheckTargetNearestEnemy(Enemy enemy)
+    private void CheckNearestEnemy()
     {
         Enemy nearestEnemy = null;
         float shortestDistance = Mathf.Infinity;
@@ -189,5 +201,22 @@ public class Player : Character
             RotateToward(nearestEnemy);
         }
 
+    }
+
+    public void UpdateScore()
+    {
+        durationFloatingScore += Time.deltaTime;
+        if (durationFloatingScore >= 2f)
+        {
+            txAddPoint.gameObject.SetActive(false);
+        }
+        else
+        {
+
+            txAddPoint.gameObject.SetActive(true);
+            float speed = 1f;
+            txAddPoint.transform.position += Vector3.up * speed * Time.deltaTime;
+            txPoint.text = GameDataUser.point.ToString();
+        }
     }
 }
