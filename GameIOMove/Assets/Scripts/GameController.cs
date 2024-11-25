@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 public class GameController : Singleton<GameController>
@@ -15,10 +16,12 @@ public class GameController : Singleton<GameController>
     public Transform maxX;
     public Transform maxZ;
 
+
     public Player[] playerVariants; // Mảng chứa các prefab variant của nhân vật
     public List<Enemy> enemies = new List<Enemy>();
     public Player currentPlayer;   // Nhân vật hiện tại
-
+    public int point;
+    public PopupDropItem dropItem;
     private void OnEnable()
     {
         GameDataConstants.Load();
@@ -27,6 +30,8 @@ public class GameController : Singleton<GameController>
 
     private void Start()
     {
+        point = 0;
+        currentPlayer.txPoint.text = point.ToString();
         CreatePlayer();
         CreateEnemy();
     }
@@ -186,5 +191,15 @@ public class GameController : Singleton<GameController>
             enemies.Add(enemyInstance);
         }
         // enemyInstance.transform.position = enemySpawn.position;
+    }
+    public void UpdateScore()
+    {
+        currentPlayer.txPoint.text = GameController.Instance.point.ToString();
+        currentPlayer.txAddPoint.gameObject.SetActive(false);
+        currentPlayer.txAddPoint.gameObject.SetActive(true);
+    }
+    public void ShowPopupDropItem()
+    {
+        dropItem.gameObject.SetActive(true);
     }
 }

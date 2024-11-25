@@ -11,9 +11,7 @@ public static class GameDataUser
     public static int equippedWeapon;
     public static int equippedPant;
     public static int equippedSkinSet;
-    public static int point;
 
-    public const string PREF_KEY_POINT = "point";
     public const string PREF_KEY_GOLD = "gold";
 
     public const string PREF_KEY_EQUIPPED_WEAPON = "equipped_weapon";
@@ -36,7 +34,6 @@ public static class GameDataUser
     public static void Load()
     {
         gold = PlayerPrefs.GetInt(PREF_KEY_GOLD, 100);
-        point = PlayerPrefs.GetInt(PREF_KEY_POINT, 0);
 
         equippedWeapon = PlayerPrefs.GetInt(PREF_KEY_EQUIPPED_WEAPON);
         LoadOwnedWeapon();
@@ -203,4 +200,5 @@ public static class GameDataUser
             ownedSkinSets = JsonConvert.DeserializeObject<List<int>>(json);
         }
     }
+
 }

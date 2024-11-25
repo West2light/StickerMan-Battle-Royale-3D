@@ -8,10 +8,11 @@ public class Player : Character
 {
     private float inputVertical;
     private float inputHorizontal;
-    private float durationFloatingScore;
 
     public RectTransform rangeUI;
     public Joystick joystick;
+
+
     public TMP_Text txPoint;
     public TMP_Text txAddPoint;
     public float speed = 5f;
@@ -23,15 +24,7 @@ public class Player : Character
         TeamTag = "TeamA";
 
     }
-    private void Awake()
-    {
-        durationFloatingScore = 0f;
-    }
-    private void Start()
-    {
-        txPoint.text = GameDataUser.point.ToString();
-        UpdateScore();
-    }
+
 
     protected override void Update()
     {
@@ -203,20 +196,5 @@ public class Player : Character
 
     }
 
-    public void UpdateScore()
-    {
-        durationFloatingScore += Time.deltaTime;
-        if (durationFloatingScore >= 2f)
-        {
-            txAddPoint.gameObject.SetActive(false);
-        }
-        else
-        {
 
-            txAddPoint.gameObject.SetActive(true);
-            float speed = 1f;
-            txAddPoint.transform.position += Vector3.up * speed * Time.deltaTime;
-            txPoint.text = GameDataUser.point.ToString();
-        }
-    }
 }

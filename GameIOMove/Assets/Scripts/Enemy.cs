@@ -140,18 +140,13 @@ public class Enemy : Character
         if (this.state == BehaviourState.Dead)
         {
             gameObject.SetActive(false);
-
-
-            //int point = PlayerPrefs.GetInt(GameDataUser.PREF_KEY_POINT, 0);
-            //point += 1;
-
-            GameDataUser.point += 1;
-            Debug.Log("point= " + GameDataUser.point);
-
-            PlayerPrefs.SetInt(GameDataUser.PREF_KEY_POINT, GameDataUser.point);
-            PlayerPrefs.Save();
-
-            GameController.Instance.currentPlayer.UpdateScore();
+            GameController.Instance.enemies.Remove(this);
+            if (GameController.Instance.enemies.Count == 0)
+            {
+                GameController.Instance.ShowPopupDropItem();
+            }
+            GameController.Instance.point += 1;
+            GameController.Instance.UpdateScore();
 
             timerDead += Time.deltaTime;
             if (timerDead >= 5f)
@@ -159,6 +154,7 @@ public class Enemy : Character
                 gameObject.SetActive(false);
             }
         }
+
     }
     public void CheckTargetPoint(bool isTarget)
     {

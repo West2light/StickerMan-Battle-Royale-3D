@@ -26,7 +26,7 @@ public class PopupWeapon : MonoBehaviour
 
     private int currentIndex = -1;
 
-    private WeaponData wpSelectingData;
+    public WeaponData wpSelectingData;
 
     private void Awake()
     {
