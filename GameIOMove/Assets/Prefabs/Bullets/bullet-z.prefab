@@ -62,9 +62,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 086c4edb03eca2b488e19be819aeeb02, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  model: {fileID: 2430748717352021092, guid: cf6f944d02c6d074d81182966e336a36, type: 3}
+  model: {fileID: 2939828890786306278}
   speedMove: 5
-  speedTurn: 2000
+  speedTurn: 1000
+  distanceToDestroy: 5
   rb: {fileID: 0}
   shooter: {fileID: 0}
 --- !u!1001 &7905763491785880572
@@ -112,15 +113,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -4216859302048453862, guid: f6ba6acc744d0ff46af0b4623f8862f4, type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: -4216859302048453862, guid: f6ba6acc744d0ff46af0b4623f8862f4, type: 3}
       propertyPath: m_LocalRotation.z
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: -4216859302048453862, guid: f6ba6acc744d0ff46af0b4623f8862f4, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
-      value: 90
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -4216859302048453862, guid: f6ba6acc744d0ff46af0b4623f8862f4, type: 3}
       propertyPath: m_LocalEulerAnglesHint.y
@@ -157,7 +158,7 @@ CapsuleCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2204238325909908213}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   m_Radius: 0.046801783
   m_Height: 0.09360357

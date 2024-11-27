@@ -15,13 +15,11 @@ public class Enemy : Character
         base.OnEnable();
         agent = GetComponent<NavMeshAgent>();
         TeamTag = "TeamB";
+        EquipHat(HatId.Luffy);
+        EquipWeapon(WeaponId.Hammer);
     }
 
-    //protected override void FixedUpdate()
-    //{
-    //    base.FixedUpdate();
-    //    RotateToward(GameController.Instance.player);
-    //}
+
 
     public override void ChangeState(BehaviourState newState)
     {
@@ -32,11 +30,9 @@ public class Enemy : Character
         }
 
     }
-    //private IEnumerator HandleDeadth()
-    //{
-    //    yield return new WaitForSeconds(0.5f);
-    //    gameObject.SetActive(false);
-    //}
+
+
+
     protected override void UpdateIdle()
     {
 

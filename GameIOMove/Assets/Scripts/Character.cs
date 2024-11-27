@@ -39,14 +39,15 @@ public class Character : MonoBehaviour
     public float throwForce = 20f;
     public Transform throwPoint;
 
-    public float heal = 100f;
-
+    public float currenHeal;
+    public float maxHP;
     public string TeamTag;
     protected bool isAttacking = false;
 
     #region Unity Methods
     protected virtual void Awake()
     {
+        currenHeal = maxHP;
         rigidbodyCharacter = GetComponent<Rigidbody>();
         timerIdle = 0f;
         timerDead = 0f;
@@ -302,8 +303,8 @@ public class Character : MonoBehaviour
 
     public virtual void TakeDamage(float damage)
     {
-        heal -= damage;
-        if ((int)heal <= 0f)
+        currenHeal -= damage;
+        if ((int)currenHeal <= 0f)
         {
             ChangeState(BehaviourState.Dead);
             return;

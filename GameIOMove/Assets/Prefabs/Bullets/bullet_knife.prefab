@@ -46,9 +46,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 086c4edb03eca2b488e19be819aeeb02, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  model: {fileID: 6123612910399544533, guid: fcc59fbc2f9878b45b921d9dadcbd540, type: 3}
+  model: {fileID: 4631118164535047189}
   speedMove: 5
   speedTurn: 2000
+  distanceToDestroy: 0
   rb: {fileID: 0}
   shooter: {fileID: 0}
 --- !u!54 &8263670078639945701

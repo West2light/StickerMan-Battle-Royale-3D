@@ -46,7 +46,7 @@ public static class GameDataUser
 
         equippedSkinSet = PlayerPrefs.GetInt(PREF_KEY_EQUIPPED_SKINSET);
         LoadSkinSet();
-
+        Debug.Log("EquippedWeeapon: " + equippedWeapon);
     }
 
     public static void AddGold(int value)

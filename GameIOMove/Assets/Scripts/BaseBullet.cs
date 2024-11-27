@@ -38,7 +38,7 @@ public class BaseBullet : MonoBehaviour
         // Rotate
         Vector3 r = model.localEulerAngles;
         r.y += speedTurn * Time.deltaTime;
-        model.localEulerAngles = r;
+        model.localEulerAngles = new Vector3(model.localEulerAngles.x, r.y, model.localEulerAngles.z);
     }
 
 
@@ -54,7 +54,7 @@ public class BaseBullet : MonoBehaviour
             Character targetCharacter = other.GetComponentInParent<Character>();
             if (targetCharacter != null && targetCharacter.enabled == true)
             {
-                float damage = shooter.heal / 3f;
+                float damage = targetCharacter.maxHP / 3f;
                 targetCharacter.TakeDamage(damage);
             }
             Deactive();

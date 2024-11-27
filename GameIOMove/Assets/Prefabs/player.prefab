@@ -304,7 +304,8 @@ MonoBehaviour:
   headTransform: {fileID: 7713199880299332125}
   throwForce: 20
   throwPoint: {fileID: 5218982558667589551}
-  heal: 100
+  currenHeal: 0
+  maxHP: 100
   TeamTag: 
   rangeUI: {fileID: 1606999436}
   joystick: {fileID: 8170153791668043265, guid: 0d230cc8be529a542a08cb878ab14b18, type: 3}

@@ -326,7 +326,8 @@ MonoBehaviour:
   headTransform: {fileID: 0}
   throwForce: 20
   throwPoint: {fileID: 4224061731057091426}
-  heal: 100
+  currenHeal: 0
+  maxHP: 100
   TeamTag: 
   detectionRadius: 20
   imgTargetPoint: {fileID: 1764251853}

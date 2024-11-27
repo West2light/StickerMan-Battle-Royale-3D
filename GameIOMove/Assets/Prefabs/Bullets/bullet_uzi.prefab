@@ -62,9 +62,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 086c4edb03eca2b488e19be819aeeb02, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  model: {fileID: 1706674823724395162, guid: ba485bef4e69d1448af9519dcd61bd99, type: 3}
+  model: {fileID: 3667518970355914039}
   speedMove: 5
   speedTurn: 2000
+  distanceToDestroy: 0
   rb: {fileID: 0}
   shooter: {fileID: 0}
 --- !u!1001 &8619627852604358189
