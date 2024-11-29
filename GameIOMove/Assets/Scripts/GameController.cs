@@ -22,6 +22,7 @@ public class GameController : Singleton<GameController>
     public Player currentPlayer;   // Nhân vật hiện tại
     public int point;
     public PopupDropItem dropItem;
+    public float timerRound = 60f;
     private void OnEnable()
     {
         GameDataConstants.Load();
@@ -117,31 +118,12 @@ public class GameController : Singleton<GameController>
 
     private void Update()
     {
-        // Ấn phím để thay đổi set đồ (variant)
-        if (Input.GetKeyDown(KeyCode.Alpha1))
+        timerRound -= 1;
+        if (timerRound == 0f)
         {
-            ChangeCharacter(0); // Set đồ đầu tiên
+
         }
-        if (Input.GetKeyDown(KeyCode.Alpha2))
-        {
-            ChangeCharacter(1); // Set đồ thứ hai
-        }
-        if (Input.GetKeyDown(KeyCode.Alpha3))
-        {
-            ChangeCharacter(2); // Set đồ thứ ba
-        }
-        if (Input.GetKeyDown(KeyCode.Alpha4))
-        {
-            ChangeCharacter(3); // Set đồ thứ tư
-        }
-        if (Input.GetKeyDown(KeyCode.Alpha5))
-        {
-            ChangeCharacter(4); // Set đồ thứ năm
-        }
-        if (Input.GetKeyDown(KeyCode.Alpha6))
-        {
-            ChangeCharacter(5); // Set đồ thứ năm
-        }
+
     }
 
     private void ChangeCharacter(int index)

@@ -9,7 +9,8 @@ public enum BehaviourState
     Run,
     Attack,
     Dead,
-    Dance
+    Dance,
+    Win
 }
 
 public class Character : MonoBehaviour
@@ -27,30 +28,30 @@ public class Character : MonoBehaviour
     public Rigidbody rigidbodyCharacter;
     public BaseWeapon usingWeapon;
     public BaseHat usingHat;
+    protected bool isDead = false;
 
     protected const string ANIM_TRIGGER_IDLE = "Idle";
     protected const string ANIM_TRIGGER_RUN = "Run";
     protected const string ANIM_TRIGGER_ATTACK = "Attack";
     protected const string ANIM_TRIGGER_DEAD = "Dead";
     protected const string ANIM_TRIGGER_DANCE = "Dance";
+    protected const string ANIM_TRIGGER_WIN = "Win";
 
     public Transform handTransform;
     public Transform headTransform;
     public float throwForce = 20f;
     public Transform throwPoint;
 
-    public float currenHeal;
+    public float currentHealth;
     public float maxHP;
     public string TeamTag;
-    protected bool isAttacking = false;
 
     #region Unity Methods
     protected virtual void Awake()
     {
-        currenHeal = maxHP;
+        currentHealth = maxHP;
         rigidbodyCharacter = GetComponent<Rigidbody>();
         timerIdle = 0f;
-        timerDead = 0f;
     }
 
     protected virtual void OnEnable()
@@ -65,6 +66,15 @@ public class Character : MonoBehaviour
         UpdateIdle();
         //UpdateRun();
         // UpdateDance();
+        if (isDead)
+        {
+            timerDead += Time.deltaTime;
+            if (timerDead >= 5f)
+            {
+                gameObject.SetActive(false);
+            }
+
+        }
 
     }
 
@@ -216,7 +226,9 @@ public class Character : MonoBehaviour
                 case BehaviourState.Run: BeginRun(); break;
                 case BehaviourState.Attack: BeginAttack(); break;
                 case BehaviourState.Dance: BeginDance(); break;
+                case BehaviourState.Win: BeginWin(); break;
                 case BehaviourState.Dead: Dead(); break;
+
             }
         }
     }
@@ -240,7 +252,11 @@ public class Character : MonoBehaviour
 
     }
     #endregion
-
+    protected virtual void BeginWin()
+    {
+        state = BehaviourState.Win;
+        animator.SetTrigger(ANIM_TRIGGER_WIN);
+    }
     #region Run
     protected virtual void BeginRun()
     {
@@ -295,16 +311,17 @@ public class Character : MonoBehaviour
     #region Dead
     protected virtual void Dead()
     {
+        isDead = true;
+        timerDead = 0f;
         state = BehaviourState.Dead;
         animator.SetTrigger(ANIM_TRIGGER_DEAD);
-
     }
     #endregion
 
     public virtual void TakeDamage(float damage)
     {
-        currenHeal -= damage;
-        if ((int)currenHeal <= 0f)
+        currentHealth -= damage;
+        if ((int)currentHealth <= 0f)
         {
             ChangeState(BehaviourState.Dead);
             return;

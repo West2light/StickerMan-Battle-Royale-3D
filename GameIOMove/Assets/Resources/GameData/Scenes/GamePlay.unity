@@ -1116,6 +1116,7 @@ MonoBehaviour:
   currentPlayer: {fileID: 2183683603726215528, guid: 2afac7e8336c47f4291d4be04a04a758, type: 3}
   point: 0
   dropItem: {fileID: 430641925}
+  timerRound: 60
 --- !u!224 &776679562 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 8135886326569738822, guid: 56fae09712773584fb63896d473a98ee, type: 3}
@@ -1838,6 +1839,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2033757068, guid: aef73ce12c53f4340912637067b152a1, type: 3}
+      propertyPath: m_IsTrigger
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 1478125009268662757, guid: aef73ce12c53f4340912637067b152a1, type: 3}
       propertyPath: m_LocalScale.x
       value: 40

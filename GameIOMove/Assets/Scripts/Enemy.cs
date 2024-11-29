@@ -10,6 +10,7 @@ public class Enemy : Character
     private Vector3 moveDestination;
     public float detectionRadius;
     public Image imgTargetPoint;
+
     protected override void OnEnable()
     {
         base.OnEnable();
@@ -17,10 +18,14 @@ public class Enemy : Character
         TeamTag = "TeamB";
         EquipHat(HatId.Luffy);
         EquipWeapon(WeaponId.Hammer);
+
     }
 
 
-
+    protected override void Update()
+    {
+        base.Update();
+    }
     public override void ChangeState(BehaviourState newState)
     {
         base.ChangeState(newState);
@@ -63,15 +68,27 @@ public class Enemy : Character
                         {
                             RotateToward(GameController.Instance.currentPlayer);
                             ChangeState(BehaviourState.Attack);
-                            return;
                         }
                     }
                 }
             }
-
+            if (GameController.Instance.currentPlayer.currentHealth <= 0)
+            {
+                ChangeState(BehaviourState.Win);
+            }
         }
     }
-
+    protected override void BeginAttack()
+    {
+        base.BeginAttack();
+        if (state == BehaviourState.Attack)
+        {
+            if (GameController.Instance.currentPlayer.state == BehaviourState.Dead)
+            {
+                ChangeState(BehaviourState.Idle);
+            }
+        }
+    }
     private Vector3 GetRandomMovePosition()
     {
         Vector3 v = transform.position;
@@ -135,22 +152,15 @@ public class Enemy : Character
         base.Dead();
         if (this.state == BehaviourState.Dead)
         {
-            gameObject.SetActive(false);
             GameController.Instance.enemies.Remove(this);
             if (GameController.Instance.enemies.Count == 0)
             {
+                GameController.Instance.currentPlayer.ChangeState(BehaviourState.Idle);
                 GameController.Instance.ShowPopupDropItem();
             }
             GameController.Instance.point += 1;
             GameController.Instance.UpdateScore();
-
-            timerDead += Time.deltaTime;
-            if (timerDead >= 5f)
-            {
-                gameObject.SetActive(false);
-            }
         }
-
     }
     public void CheckTargetPoint(bool isTarget)
     {

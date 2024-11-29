@@ -63,6 +63,8 @@ public class Player : Character
         {
             return;
         }
+
+
     }
 
     //protected override void FixedUpdate()
@@ -137,6 +139,10 @@ public class Player : Character
                 ChangeState(BehaviourState.Dance);
                 return;
             }
+            if (GameController.Instance.enemies.Count == 0)
+            {
+                ChangeState(BehaviourState.Win);
+            }
         }
     }
 
@@ -166,7 +172,6 @@ public class Player : Character
     protected override void BeginAttack()
     {
         base.BeginAttack();
-        isAttacking = false;
     }
     private void UpdateRange()
     {
@@ -194,6 +199,17 @@ public class Player : Character
             RotateToward(nearestEnemy);
         }
 
+    }
+    protected override void Dead()
+    {
+        base.Dead();
+        if (this.state == BehaviourState.Dead)
+        {
+            for (int i = 0; i < GameController.Instance.enemies.Count; i++)
+            {
+                GameController.Instance.enemies[i].ChangeState(BehaviourState.Idle);
+            }
+        }
     }
 
 

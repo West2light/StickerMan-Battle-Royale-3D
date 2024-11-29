@@ -326,7 +326,7 @@ MonoBehaviour:
   headTransform: {fileID: 0}
   throwForce: 20
   throwPoint: {fileID: 4224061731057091426}
-  currenHeal: 0
+  currentHealth: 0
   maxHP: 100
   TeamTag: 
   detectionRadius: 20
@@ -411,7 +411,7 @@ PrefabInstance:
     - target: {fileID: -6057140222963153312, guid: 95d1f70328fa6354aa8497d126d82450, type: 3}
       propertyPath: m_Controller
       value: 
-      objectReference: {fileID: 9100000, guid: eb80128585d7d4c4e89b0f2c1b9f607c, type: 2}
+      objectReference: {fileID: 9100000, guid: 0de78af4933360f4793eee7d06d08e05, type: 2}
     - target: {fileID: -6008434836159022525, guid: 95d1f70328fa6354aa8497d126d82450, type: 3}
       propertyPath: m_Layer
       value: 9
