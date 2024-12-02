@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class LobbyManager : Singleton<LobbyManager>
@@ -15,6 +16,8 @@ public class LobbyManager : Singleton<LobbyManager>
 
     public List<Player> playerSkins = new List<Player>();
     public Dictionary<SkinSetId, Player> playerMap;
+
+
 
     private void OnEnable()
     {
@@ -71,7 +74,7 @@ public class LobbyManager : Singleton<LobbyManager>
 
     private void ClickBtPlay()
     {
-
+        SceneManager.LoadScene("GamePlay");
     }
 
     private void ClickBtSkin()

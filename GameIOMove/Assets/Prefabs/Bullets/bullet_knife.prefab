@@ -51,6 +51,7 @@ MonoBehaviour:
   speedTurn: 2000
   distanceToDestroy: 0
   rb: {fileID: 0}
+  index: 10
   shooter: {fileID: 0}
 --- !u!54 &8263670078639945701
 Rigidbody:

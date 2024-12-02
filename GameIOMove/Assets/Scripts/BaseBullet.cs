@@ -11,7 +11,7 @@ public class BaseBullet : MonoBehaviour
     public float speedTurn = 100f;
     public float distanceToDestroy;
     public Rigidbody rb;
-
+    public int index;
 
     public Character shooter;
 
@@ -24,6 +24,12 @@ public class BaseBullet : MonoBehaviour
     {
         Move();
         TrackingDeactive();
+
+    }
+
+    public void InitBullet()
+    {
+        rb = GetComponent<Rigidbody>();  // Lấy Rigidbody của viên đạn
 
     }
     private void Move()
@@ -46,7 +52,7 @@ public class BaseBullet : MonoBehaviour
     {
         if (shooter == null)
         {
-            Deactive();
+            // ReturnToPool();
             return;
         }
         if (shooter.CompareTag(other.transform.root.tag) == false)
@@ -57,7 +63,7 @@ public class BaseBullet : MonoBehaviour
                 float damage = targetCharacter.maxHP / 3f;
                 targetCharacter.TakeDamage(damage);
             }
-            Deactive();
+            //  ReturnToPool();
         }
     }
 
@@ -66,13 +72,13 @@ public class BaseBullet : MonoBehaviour
         float distanceMoved = Vector3.Distance(shooter.transform.position, transform.position);
         if (distanceMoved >= distanceToDestroy)
         {
-            Deactive();
+            //ReturnToPool();
         }
     }
 
 
-    public void Deactive()
+    private void ReturnToPool()
     {
-        Destroy(gameObject);
+        BulletPool.Instance.ReturnBullet(this);
     }
 }

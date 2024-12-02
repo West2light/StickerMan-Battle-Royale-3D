@@ -25,8 +25,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7870373777870460025}
-  m_LocalRotation: {x: 0.7071068, y: 0, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalRotation: {x: -0, y: 0.95836097, z: -0, w: -0.2855597}
+  m_LocalPosition: {x: 14.016468, y: 1.1222302, z: -0.29661036}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -65,8 +65,9 @@ MonoBehaviour:
   model: {fileID: 512976832365119648}
   speedMove: 5
   speedTurn: 3000
-  damage: 0
-  rb: {fileID: 0}
+  distanceToDestroy: 30
+  rb: {fileID: 1454330416}
+  index: 3
   shooter: {fileID: 0}
 --- !u!1001 &41883470709763915
 PrefabInstance:

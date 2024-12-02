@@ -304,7 +304,7 @@ MonoBehaviour:
   headTransform: {fileID: 7713199880299332125}
   throwForce: 20
   throwPoint: {fileID: 5218982558667589551}
-  currenHeal: 0
+  currentHealth: 0
   maxHP: 100
   TeamTag: 
   rangeUI: {fileID: 1606999436}

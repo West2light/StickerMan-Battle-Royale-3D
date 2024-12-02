@@ -9,7 +9,8 @@ public class BaseWeapon : MonoBehaviour
 
     public void CreateBullet(Character shooter)
     {
-        BaseBullet bullet = Instantiate(prefabBullet);
+        BaseBullet bullet = BulletPool.Instance.GetBullet(prefabBullet.index);
+        bullet.gameObject.SetActive(true);
         bullet.transform.position = shooter.throwPoint.position;
         bullet.transform.rotation = shooter.transform.rotation;
         bullet.distanceToDestroy = shooter.rangeAttack;

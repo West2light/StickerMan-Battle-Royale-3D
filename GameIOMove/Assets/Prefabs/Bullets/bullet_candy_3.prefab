@@ -67,6 +67,7 @@ MonoBehaviour:
   speedTurn: 2000
   distanceToDestroy: 0
   rb: {fileID: 0}
+  index: 8
   shooter: {fileID: 0}
 --- !u!1001 &8902018820502873965
 PrefabInstance:

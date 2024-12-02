@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using UnityEngine.SceneManagement;
 
 public class Player : Character
 {
@@ -22,7 +23,7 @@ public class Player : Character
 
         base.OnEnable();
         TeamTag = "TeamA";
-
+        CheckSecene();
     }
 
 
@@ -143,6 +144,10 @@ public class Player : Character
             {
                 ChangeState(BehaviourState.Win);
             }
+            if (currentHealth == 0)
+            {
+                isRunning = false;
+            }
         }
     }
 
@@ -208,9 +213,18 @@ public class Player : Character
             for (int i = 0; i < GameController.Instance.enemies.Count; i++)
             {
                 GameController.Instance.enemies[i].ChangeState(BehaviourState.Idle);
+                GameController.Instance.enemies[i].CheckTargetPoint(false);
             }
         }
-    }
 
+    }
+    private void CheckSecene()
+    {
+        if (SceneManager.GetActiveScene().name == "Lobby")
+        {
+            txAddPoint.transform.parent.gameObject.SetActive(false);
+            rangeUI.transform.parent.gameObject.SetActive(false);
+        }
+    }
 
 }

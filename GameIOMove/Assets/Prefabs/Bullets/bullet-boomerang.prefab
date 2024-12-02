@@ -65,7 +65,9 @@ MonoBehaviour:
   model: {fileID: 7293436205109732454}
   speedMove: 5
   speedTurn: 2000
+  distanceToDestroy: 0
   rb: {fileID: 0}
+  index: 1
   shooter: {fileID: 0}
 --- !u!1001 &7293436205110132454
 PrefabInstance:

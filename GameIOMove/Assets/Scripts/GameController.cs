@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
-
+using UnityEngine.SceneManagement;
 public class GameController : Singleton<GameController>
 {
     public BaseWeapon wp;
@@ -22,22 +22,56 @@ public class GameController : Singleton<GameController>
     public Player currentPlayer;   // Nhân vật hiện tại
     public int point;
     public PopupDropItem dropItem;
-    public float timerRound = 60f;
+    public GameOver gameOver;
+    public Timer timeCount;
     private void OnEnable()
     {
         GameDataConstants.Load();
         GameDataUser.Load();
+        if (SceneManager.GetActiveScene().name == "GamePlay")
+        {
+            timeCount.ResetGameTime();
+        }
     }
-
     private void Start()
     {
-        point = 0;
-        currentPlayer.txPoint.text = point.ToString();
-        CreatePlayer();
-        CreateEnemy();
+        if (SceneManager.GetActiveScene().name == "GamePlay")
+        {
+            currentPlayer.txAddPoint.transform.parent.gameObject.SetActive(true);
+            currentPlayer.rangeUI.transform.parent.gameObject.SetActive(true);
+            point = 0;
+            currentPlayer.txPoint.text = point.ToString();
+            CreatePlayer();
+            CreateEnemy();
+        }
     }
 
+    private void Update()
+    {
+        if (SceneManager.GetActiveScene().name == "GamePlay")
+        {
+            timeCount.TimeCountDown();
+            if (timeCount.stopTimer)
+            {
+                for (int i = 0; i < enemies.Count; i++)
+                {
+                    enemies[i].ChangeState(BehaviourState.Win);
+                }
+                currentPlayer.ChangeState(BehaviourState.Dead);
+            }
 
+            if (enemies.Count == 0 || currentPlayer.state == BehaviourState.Dead)
+            {
+                timeCount.PauseTime();
+            }
+
+            if (currentPlayer.state == BehaviourState.Dead)
+            {
+                gameOver.gameObject.SetActive(true);
+            }
+        }
+
+    }
     //private void CreatePlayer()
     //{
     //    player = Instantiate(player);
@@ -107,7 +141,7 @@ public class GameController : Singleton<GameController>
             currentPlayer = Instantiate(playerVariants[0], playerSpawn.position, Quaternion.identity); // Spawn nhân vật
             currentPlayer.tag = "TeamA";
             currentPlayer.SetJoystick(joystick); // Thiết lập joystick cho nhân vật
-            // Thiết lập camera theo dõi nhân vật
+                                                 // Thiết lập camera theo dõi nhân vật
             if (Camera.main != null && currentPlayer != null)
             {
                 CameraController.Instance.SetTarget(currentPlayer.transform);
@@ -116,52 +150,43 @@ public class GameController : Singleton<GameController>
 
     }
 
-    private void Update()
-    {
-        timerRound -= 1;
-        if (timerRound == 0f)
-        {
 
-        }
+    //private void ChangeCharacter(int index)
+    //{
+    //    // Kiểm tra index có hợp lệ không
+    //    if (index < playerVariants.Length)
+    //    {
 
-    }
+    //        // Lưu vị trí và hướng của nhân vật hiện tại
+    //        Vector3 currentPosition = currentPlayer.transform.position;
+    //        Quaternion currentRotation = currentPlayer.transform.rotation;
 
-    private void ChangeCharacter(int index)
-    {
-        // Kiểm tra index có hợp lệ không
-        if (index < playerVariants.Length)
-        {
+    //        // Xóa nhân vật hiện tại
+    //        if (currentPlayer != null)
+    //        {
+    //            Destroy(currentPlayer.gameObject);
+    //        }
 
-            // Lưu vị trí và hướng của nhân vật hiện tại
-            Vector3 currentPosition = currentPlayer.transform.position;
-            Quaternion currentRotation = currentPlayer.transform.rotation;
-
-            // Xóa nhân vật hiện tại
-            if (currentPlayer != null)
-            {
-                Destroy(currentPlayer.gameObject);
-            }
-
-            // Tạo nhân vật mới từ prefab variant
-            currentPlayer = Instantiate(playerVariants[index], currentPosition, currentRotation);
-            currentPlayer.tag = "TeamA";
-            currentPlayer.SetJoystick(joystick); // Thiết lập joystick
+    //        // Tạo nhân vật mới từ prefab variant
+    //        currentPlayer = Instantiate(playerVariants[index], currentPosition, currentRotation);
+    //        currentPlayer.tag = "TeamA";
+    //        currentPlayer.SetJoystick(joystick); // Thiết lập joystick
 
 
 
 
-            // Cập nhật camera theo dõi nhân vật mới
-            if (Camera.main != null)
-            {
-                CameraController.Instance.SetTarget(currentPlayer.transform);
-            }
-        }
-    }
+    //        // Cập nhật camera theo dõi nhân vật mới
+    //        if (Camera.main != null)
+    //        {
+    //            CameraController.Instance.SetTarget(currentPlayer.transform);
+    //        }
+    //    }
+    //}
 
     private void CreateEnemy()
     {
 
-        for (int i = 0; i < 2; i++)
+        for (int i = 0; i < 1; i++)
         {
             enemySpawn.position = new Vector3(
                 Random.Range(currentPlayer.transform.position.x + Random.Range(5, 10), currentPlayer.transform.position.x + Random.Range(20, 40)),
