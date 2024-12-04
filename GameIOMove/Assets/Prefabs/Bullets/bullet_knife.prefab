@@ -49,10 +49,11 @@ MonoBehaviour:
   model: {fileID: 4631118164535047189}
   speedMove: 5
   speedTurn: 2000
-  distanceToDestroy: 0
+  distanceToDestroy: 30
   rb: {fileID: 0}
   index: 10
   shooter: {fileID: 0}
+  isMoved: 0
 --- !u!54 &8263670078639945701
 Rigidbody:
   m_ObjectHideFlags: 0

@@ -104,9 +104,11 @@
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\WarpTextExample.cs" />
     <Compile Include="Assets\Scripts\Lobby\PopupPant.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TMP_DigitValidator.cs" />
+    <Compile Include="Assets\GameOver.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\Benchmark02.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TextMeshSpawner.cs" />
     <Compile Include="Assets\PopupSet.cs" />
+    <Compile Include="Assets\Scripts\BulletPool.cs" />
     <Compile Include="Assets\Data\PantData.cs" />
     <Compile Include="Assets\Scripts\GameEnums.cs" />
     <Compile Include="Assets\BoxSet.cs" />
@@ -137,8 +139,6 @@
     <Compile Include="Assets\Data\GameDataUser.cs" />
     <Compile Include="Assets\Scripts\BasePant.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\Benchmark01.cs" />
-    <Compile Include="Assets\GameOver.cs" />
-    <Compile Include="Assets\Scripts\BulletPool.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\TextMesh Pro\Shaders\TMPro.cginc" />

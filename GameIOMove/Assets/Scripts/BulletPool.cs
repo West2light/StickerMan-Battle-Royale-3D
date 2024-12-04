@@ -6,7 +6,7 @@ using System.Linq;
 public class BulletPool : Singleton<BulletPool>
 {
     [Header("Bullet Settings")]
-    public int poolSite = 20;
+    public int poolSite;
     public List<BaseBullet> listBullet;
 
     //private Queue<BaseBullet> bulletPool = new Queue<BaseBullet>();
@@ -35,14 +35,17 @@ public class BulletPool : Singleton<BulletPool>
         {
             if (index == keys[i])
             {
-                List<BaseBullet> listBullet = mapBullet[index].OrderBy(x => !x.gameObject.activeInHierarchy).ToList();
-                return listBullet.FirstOrDefault();
+                List<BaseBullet> listBullet = mapBullet[index].Where(x => x.isMoved == false).ToList();
+                BaseBullet tempbullet = listBullet.FirstOrDefault();
+                tempbullet.isMoved = true;
+                return tempbullet;
             }
         }
         return null;
     }
     public void ReturnBullet(BaseBullet bullet)
     {
+        bullet.isMoved = false;
         bullet.gameObject.SetActive(false);
         mapBullet[bullet.index].Add(bullet);
     }

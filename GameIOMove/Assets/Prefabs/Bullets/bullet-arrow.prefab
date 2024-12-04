@@ -47,11 +47,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   model: {fileID: 7012363747680690529}
-  speedMove: 5
+  speedMove: 6
   speedTurn: 0
-  damage: 0
+  distanceToDestroy: 30
   rb: {fileID: 0}
+  index: 0
   shooter: {fileID: 0}
+  isMoved: 0
 --- !u!54 &6592396640383202480
 Rigidbody:
   m_ObjectHideFlags: 0

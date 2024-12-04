@@ -7,14 +7,14 @@ using UnityEngine;
 public class BaseBullet : MonoBehaviour
 {
     public Transform model;
-    public float speedMove = 5f;
-    public float speedTurn = 100f;
+    public float speedMove;
+    public float speedTurn;
     public float distanceToDestroy;
     public Rigidbody rb;
     public int index;
 
     public Character shooter;
-
+    public bool isMoved = false;
 
     private void Awake()
     {
@@ -41,10 +41,12 @@ public class BaseBullet : MonoBehaviour
 
         transform.Translate(0f, 0f, speedMove * Time.deltaTime);
 
+
+
         // Rotate
         Vector3 r = model.localEulerAngles;
         r.y += speedTurn * Time.deltaTime;
-        model.localEulerAngles = new Vector3(model.localEulerAngles.x, r.y, model.localEulerAngles.z);
+        model.localEulerAngles = r;
     }
 
 
@@ -52,7 +54,7 @@ public class BaseBullet : MonoBehaviour
     {
         if (shooter == null)
         {
-            // ReturnToPool();
+            ReturnToPool();
             return;
         }
         if (shooter.CompareTag(other.transform.root.tag) == false)
@@ -63,7 +65,7 @@ public class BaseBullet : MonoBehaviour
                 float damage = targetCharacter.maxHP / 3f;
                 targetCharacter.TakeDamage(damage);
             }
-            //  ReturnToPool();
+            ReturnToPool();
         }
     }
 
@@ -72,7 +74,7 @@ public class BaseBullet : MonoBehaviour
         float distanceMoved = Vector3.Distance(shooter.transform.position, transform.position);
         if (distanceMoved >= distanceToDestroy)
         {
-            //ReturnToPool();
+            ReturnToPool();
         }
     }
 

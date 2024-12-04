@@ -164,20 +164,11 @@ public class Player : Character
             }
         }
     }
-
-    protected override void RotateToward(Character targetShooter)
-    {
-        base.RotateToward(targetShooter);
-    }
-
     public void SetJoystick(Joystick newJoystick)
     {
         joystick = newJoystick;
     }
-    protected override void BeginAttack()
-    {
-        base.BeginAttack();
-    }
+
     private void UpdateRange()
     {
         if (rangeUI != null && Camera.main != null)
@@ -203,6 +194,7 @@ public class Player : Character
         {
             RotateToward(nearestEnemy);
         }
+
 
     }
     protected override void Dead()

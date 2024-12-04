@@ -142,6 +142,7 @@ public class Character : MonoBehaviour
     public virtual void EquipHat(HatId hatId)
     {
         Debug.Log("EquipHat=" + hatId);
+        Debug.Log("character =" + this);
         if (hatId == HatId.None)
         {
             if (usingHat != null)
@@ -285,9 +286,13 @@ public class Character : MonoBehaviour
     }
     protected virtual void RotateToward(Character targetShooter)
     {
-        Vector3 direction = (targetShooter.transform.position - transform.position).normalized;
-        Quaternion rotation = Quaternion.LookRotation(direction, Vector3.up);
-        transform.rotation = rotation;
+        float distance = Vector3.Distance(transform.position, targetShooter.transform.position);
+        if (distance <= rangeAttack)
+        {
+            Vector3 direction = (targetShooter.transform.position - transform.position).normalized;
+            Quaternion rotation = Quaternion.LookRotation(direction, Vector3.up);
+            transform.rotation = rotation;
+        }
     }
     protected virtual void BeginDance()
     {

@@ -16,8 +16,8 @@ public class Enemy : Character
         base.OnEnable();
         agent = GetComponent<NavMeshAgent>();
         TeamTag = "TeamB";
-        EquipHat(HatId.Luffy);
         EquipWeapon(WeaponId.Hammer);
+        EquipHat(HatId.Luffy);
 
     }
 
@@ -161,6 +161,7 @@ public class Enemy : Character
             GameController.Instance.point += 1;
             GameController.Instance.UpdateScore();
         }
+        CheckTargetPoint(false);
     }
     public void CheckTargetPoint(bool isTarget)
     {

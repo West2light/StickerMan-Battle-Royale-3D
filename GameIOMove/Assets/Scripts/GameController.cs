@@ -186,7 +186,7 @@ public class GameController : Singleton<GameController>
     private void CreateEnemy()
     {
 
-        for (int i = 0; i < 1; i++)
+        for (int i = 0; i < 2; i++)
         {
             enemySpawn.position = new Vector3(
                 Random.Range(currentPlayer.transform.position.x + Random.Range(5, 10), currentPlayer.transform.position.x + Random.Range(20, 40)),

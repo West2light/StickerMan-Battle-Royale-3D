@@ -65,10 +65,11 @@ MonoBehaviour:
   model: {fileID: 2939828890786306278}
   speedMove: 5
   speedTurn: 1000
-  distanceToDestroy: 5
+  distanceToDestroy: 30
   rb: {fileID: 0}
   index: 4
   shooter: {fileID: 0}
+  isMoved: 0
 --- !u!1001 &7905763491785880572
 PrefabInstance:
   m_ObjectHideFlags: 0
