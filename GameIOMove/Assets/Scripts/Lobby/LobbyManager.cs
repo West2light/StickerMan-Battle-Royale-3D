@@ -88,13 +88,21 @@ public class LobbyManager : Singleton<LobbyManager>
     }
     public void ChangePlayer(SkinSetId id)
     {
+        PopupSet set = new PopupSet();
         if (playerMap.ContainsKey(id) == false)
         {
             return;
         }
         for (int i = 0; i < playerMap.Count; i++)
         {
-            playerMap[id].gameObject.SetActive(false);
+            if (set.selectingSetID == id)
+            {
+                playerMap[id].gameObject.SetActive(true);
+            }
+            else
+            {
+                playerMap[id].gameObject.SetActive(false);
+            }
         }
 
         if (player != null)
@@ -104,7 +112,6 @@ public class LobbyManager : Singleton<LobbyManager>
         player = playerMap[id];
         playerMap[id].gameObject.SetActive(true);
         playerMap[id].EquipHat((int)HatId.None);
+
     }
-
 }
-

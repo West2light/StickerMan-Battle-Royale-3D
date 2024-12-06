@@ -14,6 +14,7 @@ public class TabOutFit : MonoBehaviour
     private void OnClick()
     {
         LobbyManager.Instance.popupSkin.Show(SkinTab.SkinSet);
+
     }
     private void Update()
     {

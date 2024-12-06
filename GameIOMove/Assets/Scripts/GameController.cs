@@ -133,6 +133,17 @@ public class GameController : Singleton<GameController>
 
     //    }
     //}
+    public void ChangePlayer(int index)
+    {
+        if (currentPlayer != null)
+        {
+            Destroy(currentPlayer);
+        }
+        if (index < playerVariants.Length)
+        {
+            currentPlayer = Instantiate(playerVariants[index]);
+        }
+    }
     private void CreatePlayer()
     {
         // Tạo nhân vật đầu tiên từ characterVariants

@@ -18,7 +18,7 @@ public class PopupSet : MonoBehaviour
 
     private void OnEnable()
     {
-        // Set selecting = mũ đang equipped, nếu không có thì = NONE
+        // Set selecting = SKIN đang equipped, nếu không có thì = NONE
 
         if (GameDataUser.equippedSkinSet != (int)SkinSetId.None)
         {
@@ -29,14 +29,15 @@ public class PopupSet : MonoBehaviour
         {
             selectingSetID = SkinSetId.None;
         }
+
         ReloadInfo();
     }
     private void Awake()
     {
         CreateSet();
+        ReloadInfo();
         btBuy.onClick.AddListener(ClickButtonBuy);
         btEquip.onClick.AddListener(ClickOnButtonEquip);
-        DeactiveSkinSet();
     }
     private void CreateSet()
     {
@@ -188,14 +189,7 @@ public class PopupSet : MonoBehaviour
         CheckUnlock();
     }
 
-    public void DeactiveSkinSet()
-    {
 
-        for (int i = 1; i <= LobbyManager.Instance.playerMap.Count; i++)
-        {
-            LobbyManager.Instance.playerMap[(SkinSetId)i].gameObject.SetActive(false);
-        }
-    }
 }
 
 
