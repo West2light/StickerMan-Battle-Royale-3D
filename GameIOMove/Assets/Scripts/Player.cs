@@ -204,8 +204,8 @@ public class Player : Character
         {
             for (int i = 0; i < GameController.Instance.enemies.Count; i++)
             {
-                GameController.Instance.enemies[i].ChangeState(BehaviourState.Idle);
                 GameController.Instance.enemies[i].CheckTargetPoint(false);
+                GameController.Instance.enemies[i].ChangeState(BehaviourState.Idle);
             }
         }
 

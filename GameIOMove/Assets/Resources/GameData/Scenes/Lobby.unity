@@ -1233,6 +1233,72 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &288713187
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 288713189}
+  - component: {fileID: 288713188}
+  m_Layer: 0
+  m_Name: GameController
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &288713188
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 288713187}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7c3400efbd2ed1e4196fddec25e8457f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  wp: {fileID: 0}
+  playerSpawn: {fileID: 0}
+  joystick: {fileID: 0}
+  enemy: {fileID: 0}
+  enemySpawn: {fileID: 0}
+  layerBody:
+    serializedVersion: 2
+    m_Bits: 0
+  maxX: {fileID: 0}
+  maxZ: {fileID: 0}
+  playerVariants:
+  - {fileID: 968544121}
+  - {fileID: 1034895953}
+  - {fileID: 855332580}
+  - {fileID: 916907296}
+  - {fileID: 1766701975}
+  enemies: []
+  currentPlayer: {fileID: 0}
+  point: 0
+  dropItem: {fileID: 0}
+  gameOver: {fileID: 0}
+  timeCount: {fileID: 0}
+--- !u!4 &288713189
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 288713187}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 37.53952, y: 1.0123558, z: 6.1834826}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 11
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &304517669
 GameObject:
   m_ObjectHideFlags: 0

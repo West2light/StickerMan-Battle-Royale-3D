@@ -72,7 +72,7 @@ public class Enemy : Character
                     }
                 }
             }
-            if (GameController.Instance.currentPlayer.currentHealth <= 0)
+            if (GameController.Instance.currentPlayer.state == BehaviourState.Dead)
             {
                 ChangeState(BehaviourState.Win);
             }

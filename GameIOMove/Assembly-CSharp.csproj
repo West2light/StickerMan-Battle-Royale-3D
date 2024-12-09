@@ -139,6 +139,9 @@
     <Compile Include="Assets\Data\GameDataUser.cs" />
     <Compile Include="Assets\Scripts\BasePant.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\Benchmark01.cs" />
+    <Compile Include="Assets\Scripts\GameModes\BaseMode.cs" />
+    <Compile Include="Assets\Scripts\GameModes\GameModeNormal.cs" />
+    <Compile Include="Assets\Scripts\GameModes\GameModeTeam.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\TextMesh Pro\Shaders\TMPro.cginc" />

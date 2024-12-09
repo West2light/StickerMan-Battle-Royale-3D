@@ -29,6 +29,7 @@ public class LobbyManager : Singleton<LobbyManager>
             {SkinSetId.Thor, playerSkins[3]},
             {SkinSetId.Witch, playerSkins[4]},
         };
+        player.gameObject.SetActive(true);
         if (GameDataUser.equippedSkinSet != (int)SkinSetId.None)
         {
             ChangePlayer((SkinSetId)GameDataUser.equippedSkinSet);

@@ -255,6 +255,7 @@ public class Character : MonoBehaviour
     #endregion
     protected virtual void BeginWin()
     {
+
         state = BehaviourState.Win;
         animator.SetTrigger(ANIM_TRIGGER_WIN);
     }

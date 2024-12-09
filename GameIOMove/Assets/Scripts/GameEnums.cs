@@ -64,4 +64,9 @@ public enum ShieldId
     Captain = 2,
 }
 
+public enum GameMode
+{
+    Normal,
+    Team
+}
 

@@ -7,7 +7,7 @@ public class Timer : MonoBehaviour
 {
     public Slider sliderTimer;
     public Text txTimer;
-    public float gameTime = 9999f;
+    public float gameTime = 30f;
     public bool stopTimer;
 
     private bool isPaused;
@@ -51,7 +51,7 @@ public class Timer : MonoBehaviour
     }
     public void ResetGameTime()
     {
-        gameTime = 9999f;
+        gameTime = 30f;
         sliderTimer.value = gameTime;
         stopTimer = false;
         isPaused = false;
