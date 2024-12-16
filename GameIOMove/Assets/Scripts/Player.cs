@@ -178,6 +178,10 @@ public class Player : Character
     }
     private void CheckNearestEnemy()
     {
+        if (state == BehaviourState.Dead)
+        {
+            return;
+        }
         Enemy nearestEnemy = null;
         float shortestDistance = Mathf.Infinity;
         for (int i = 0; i < GameController.Instance.enemies.Count; i++)
@@ -200,13 +204,9 @@ public class Player : Character
     protected override void Dead()
     {
         base.Dead();
-        if (this.state == BehaviourState.Dead)
+        if (state == BehaviourState.Dead)
         {
-            for (int i = 0; i < GameController.Instance.enemies.Count; i++)
-            {
-                GameController.Instance.enemies[i].CheckTargetPoint(false);
-                GameController.Instance.enemies[i].ChangeState(BehaviourState.Idle);
-            }
+            GameController.Instance.mode.OnDeadCurrentPlayer(this);
         }
 
     }

@@ -40,7 +40,11 @@ public class Enemy : Character
 
     protected override void UpdateIdle()
     {
-
+        if (GameController.Instance.currentPlayer.state == BehaviourState.Dead)
+        {
+            ChangeState(BehaviourState.Win);
+            return;
+        }
         if (state == BehaviourState.Idle)
         {
             /// Khi đối thủ bước vào tầm đánh:
@@ -72,11 +76,8 @@ public class Enemy : Character
                     }
                 }
             }
-            if (GameController.Instance.currentPlayer.state == BehaviourState.Dead)
-            {
-                ChangeState(BehaviourState.Win);
-            }
         }
+
     }
     protected override void BeginAttack()
     {
@@ -147,21 +148,31 @@ public class Enemy : Character
             }
         }
     }
+    //protected override void Dead()
+    //{
+    //    base.Dead();
+    //    if (this.state == BehaviourState.Dead)
+    //    {
+    //        GameController.Instance.enemies.Remove(this);
+    //        if (GameController.Instance.enemies.Count == 0)
+    //        {
+    //            GameController.Instance.currentPlayer.ChangeState(BehaviourState.Idle);
+    //            GameController.Instance.ShowPopupDropItem();
+    //        }
+    //        GameController.Instance.point += 1;
+    //        GameController.Instance.UpdateScore();
+    //    }
+    //    CheckTargetPoint(false);
+    //}
     protected override void Dead()
     {
         base.Dead();
         if (this.state == BehaviourState.Dead)
         {
-            GameController.Instance.enemies.Remove(this);
-            if (GameController.Instance.enemies.Count == 0)
-            {
-                GameController.Instance.currentPlayer.ChangeState(BehaviourState.Idle);
-                GameController.Instance.ShowPopupDropItem();
-            }
-            GameController.Instance.point += 1;
-            GameController.Instance.UpdateScore();
+            GameController.Instance.mode.OnDeadEnemy(this);
+
+            CheckTargetPoint(false);
         }
-        CheckTargetPoint(false);
     }
     public void CheckTargetPoint(bool isTarget)
     {
