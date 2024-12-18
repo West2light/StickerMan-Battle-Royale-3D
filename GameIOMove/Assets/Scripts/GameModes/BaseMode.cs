@@ -15,7 +15,11 @@ public class BaseMode : MonoBehaviour
     protected GameController gameController;
 
 
-
+    protected virtual void OnEnable()
+    {
+        GameDataConstants.Load();
+        GameDataUser.Load();
+    }
     public virtual void Init(GameController controller)
     {
         gameController = controller;
@@ -54,6 +58,11 @@ public class BaseMode : MonoBehaviour
     }
     public virtual void CreateEnemy()
     {
+
+    }
+    public virtual void CreateEnemy(Transform spawn, string teamTag)
+    {
+
 
     }
     protected virtual void SetUpPlayer()

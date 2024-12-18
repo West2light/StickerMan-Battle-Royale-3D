@@ -1,33 +1,79 @@
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class GameModeTeam : BaseMode
 {
     public Transform spawnPoint;
-    private Transform spawn1;
-    private Transform spawn2;
-    private Transform spawn3;
-    private Transform spawn4;
+    public List<Transform> spawnPoints;
+
+    private readonly string[] teamTags = { "TeamA", "TeamB", "TeamC", "TeamD" };
 
     private void Awake()
     {
-        spawn1 = spawnPoint;
-        spawn2.position = new Vector3(spawn1.position.x + 180, spawn1.position.y, spawn1.position.z);
-        spawn3.position = new Vector3(spawn2.position.x, spawn2.position.y, spawn2.position.z + 180);
-        spawn4.position = new Vector3(spawn3.position.x, spawn3.position.y, spawn1.position.z);
+        spawnPoints.Add(spawnPoint);
+        spawnPoints.Add(CreateSpawn(new Vector3(spawnPoint.position.x + 20, spawnPoint.position.y, spawnPoint.position.z)));
+        spawnPoints.Add(CreateSpawn(new Vector3(spawnPoint.position.x + 20, spawnPoint.position.y, spawnPoint.position.z + 20)));
+        spawnPoints.Add(CreateSpawn(new Vector3(spawnPoint.position.x, spawnPoint.position.y, spawnPoint.position.z + 20)));
     }
+    private Transform CreateSpawn(Vector3 position)
+    {
+        GameObject spawnObject = new GameObject("SpawnPoint");
+        spawnObject.transform.position = position;
+        return spawnObject.transform;
+    }
+
     public override void BeginGame()
     {
         base.BeginGame();
+
+        var spawnWithTeams = spawnPoints
+            .Zip(teamTags, (spawn, teamTag) => new { Spawn = spawn, TeamTag = teamTag });
+
+        foreach (var entry in spawnWithTeams)
+        {
+            CreateEnemy(entry.Spawn, entry.TeamTag);
+        }
+        AssginPlayer();
     }
     public override void EndGame()
     {
         base.EndGame();
+
     }
 
-    public virtual void CreateTeam()
+    public override void CreateEnemy(Transform spawn, string teamTag)
     {
 
+        for (int i = 0; i < 2; i++)
+        {
+            Enemy enemy = Instantiate(gameController.enemy, spawn.position + new Vector3(spawn.position.x + i * 1f, spawn.position.y + i * 1f, spawn.position.z + i * 1f), Quaternion.identity);
+            enemy.TeamTag = teamTag;
+            enemy.gameObject.tag = teamTag;
+            gameController.enemies.Add(enemy);
+        }
     }
+    private void AssginPlayer()
+    {
+        int playerTeamIndex = Random.Range(0, teamTags.Length);
+        string playerTeamTag = teamTags[playerTeamIndex];
+        gameController.currentPlayer.tag = playerTeamTag;
+        Enemy enemy = new Enemy();
+        for (int i = 0; i < gameController.enemies.Count; i++)
+        {
+            if (gameController.enemies[i].tag == gameController.currentPlayer.tag)
+            {
+
+                enemy = gameController.enemies[i];
+                enemy.gameObject.SetActive(false);
+                gameController.enemies.Remove(enemy);
+                break;
+            }
+        }
+        gameController.mode.playerSpawn = enemy.transform;
+
+    }
+
+
 }

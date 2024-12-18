@@ -23,7 +23,7 @@ public class Character : MonoBehaviour
     public BaseHat[] hatPrefabs;
     public BasePant[] pantPrefabs;
     public SkinnedMeshRenderer skinnedMesh;
-    public float rangeAttack = 10f;
+    public float rangeAttack;
     public bool isRunning;
     public Rigidbody rigidbodyCharacter;
     public BaseWeapon usingWeapon;
@@ -284,6 +284,16 @@ public class Character : MonoBehaviour
     {
 
 
+    }
+    protected virtual void RotateToward(GameObject gameObject)
+    {
+        float distance = Vector3.Distance(transform.position, gameObject.transform.position);
+        if (distance <= rangeAttack)
+        {
+            Vector3 direction = (gameObject.transform.position - transform.position).normalized;
+            Quaternion rotation = Quaternion.LookRotation(direction, Vector3.up);
+            transform.rotation = rotation;
+        }
     }
     protected virtual void RotateToward(Character targetShooter)
     {

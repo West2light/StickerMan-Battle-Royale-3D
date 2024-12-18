@@ -43,7 +43,7 @@ public class GameController : Singleton<GameController>
 
     private void Start()
     {
-        SetMode<GameModeNormal>();
+        SetMode<GameModeTeam>();
     }
 
     private void Update()

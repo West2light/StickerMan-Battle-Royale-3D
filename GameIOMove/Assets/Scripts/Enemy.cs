@@ -62,9 +62,43 @@ public class Enemy : Character
 
                 Collider[] colliders = Physics.OverlapSphere(transform.position, detectionRadius, GameController.Instance.layerBody);
 
+                if (GameController.Instance.mode is GameModeTeam)
+                {
+                    Transform target = null;
+                    float closestDistance = float.MaxValue;
+
+                    for (int i = 0; i < colliders.Length; i++)
+                    {
+               
+                        string targetTag = colliders[i].transform.root.tag;
+
+                
+                        if (TeamTag == targetTag)
+                            continue;
+
+                       
+                        float distance = Vector3.Distance(transform.position, colliders[i].transform.position);
+                        if (distance <= rangeAttack && distance < closestDistance)
+                        {
+                           
+                            closestDistance = distance;
+                            target = colliders[i].transform;
+                        }
+                    }
+
+                  
+                    if (target != null)
+                    {
+                        RotateToward(target.gameObject);
+                        ChangeState(BehaviourState.Attack);
+                    }
+                    return;
+                }
 
                 for (int i = 0; i < colliders.Length; i++)
                 {
+
+
                     if (GameController.Instance.currentPlayer.CompareTag(colliders[i].transform.root.tag))
                     {
                         float distanceToTarget = Vector3.Distance(transform.position, colliders[i].transform.position);
@@ -75,10 +109,12 @@ public class Enemy : Character
                         }
                     }
                 }
+
             }
         }
 
     }
+
     protected override void BeginAttack()
     {
         base.BeginAttack();
@@ -179,6 +215,7 @@ public class Enemy : Character
         imgTargetPoint.gameObject.SetActive(isTarget);
         imgTargetPoint.color = Color.gray;
     }
+
 
 }
 

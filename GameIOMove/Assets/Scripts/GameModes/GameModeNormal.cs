@@ -6,11 +6,10 @@ using UnityEngine.SceneManagement;
 public class GameModeNormal : BaseMode
 {
     public Timer timeCount;
-    private void OnEnable()
+    protected override void OnEnable()
     {
 
-        GameDataConstants.Load();
-        GameDataUser.Load();
+        base.OnEnable();
         if (SceneManager.GetActiveScene().name == "GamePlay")
         {
             timeCount.ResetGameTime();
