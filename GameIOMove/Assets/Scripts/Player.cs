@@ -164,6 +164,14 @@ public class Player : Character
             }
         }
     }
+    protected override void UpdateWin()
+    {
+        base.UpdateWin();
+        if (state == BehaviourState.Win)
+        {
+            isRunning = false;
+        }
+    }
     public void SetJoystick(Joystick newJoystick)
     {
         joystick = newJoystick;
@@ -186,6 +194,10 @@ public class Player : Character
         float shortestDistance = Mathf.Infinity;
         for (int i = 0; i < GameController.Instance.enemies.Count; i++)
         {
+            if (GameController.Instance.enemies[i].tag == GameController.Instance.currentPlayer.tag)
+            {
+                continue;
+            }
             float distanceTaget = Vector3.Distance(transform.position, GameController.Instance.enemies[i].transform.position);
             if (distanceTaget < shortestDistance)
             {

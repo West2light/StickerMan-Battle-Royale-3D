@@ -64,6 +64,7 @@ public class Character : MonoBehaviour
 
         // CheckInput();
         UpdateIdle();
+
         //UpdateRun();
         // UpdateDance();
         if (isDead)
@@ -141,8 +142,8 @@ public class Character : MonoBehaviour
 
     public virtual void EquipHat(HatId hatId)
     {
-        Debug.Log("EquipHat=" + hatId);
-        Debug.Log("character =" + this);
+        //Debug.Log("EquipHat=" + hatId);
+        //Debug.Log("character =" + this);
         if (hatId == HatId.None)
         {
             if (usingHat != null)
@@ -258,6 +259,9 @@ public class Character : MonoBehaviour
 
         state = BehaviourState.Win;
         animator.SetTrigger(ANIM_TRIGGER_WIN);
+    }
+    protected virtual void UpdateWin()
+    {
     }
     #region Run
     protected virtual void BeginRun()

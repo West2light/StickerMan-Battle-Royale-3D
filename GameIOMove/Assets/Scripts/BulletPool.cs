@@ -25,7 +25,7 @@ public class BulletPool : Singleton<BulletPool>
                 mapBullet[j].Add(instanceBullet);
             }
         }
-        Debug.Log("mapBullet =" + mapBullet.Count);
+        //Debug.Log("mapBullet =" + mapBullet.Count);
     }
     public BaseBullet GetBullet(int index)
     {

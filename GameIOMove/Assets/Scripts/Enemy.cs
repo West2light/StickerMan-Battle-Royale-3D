@@ -11,6 +11,7 @@ public class Enemy : Character
     public float detectionRadius;
     public Image imgTargetPoint;
 
+    public GameObject LastAttacker { get; private set; }
     protected override void OnEnable()
     {
         base.OnEnable();
@@ -69,24 +70,24 @@ public class Enemy : Character
 
                     for (int i = 0; i < colliders.Length; i++)
                     {
-               
+
                         string targetTag = colliders[i].transform.root.tag;
 
-                
+
                         if (TeamTag == targetTag)
                             continue;
 
-                       
+
                         float distance = Vector3.Distance(transform.position, colliders[i].transform.position);
                         if (distance <= rangeAttack && distance < closestDistance)
                         {
-                           
+
                             closestDistance = distance;
                             target = colliders[i].transform;
                         }
                     }
 
-                  
+
                     if (target != null)
                     {
                         RotateToward(target.gameObject);
@@ -126,6 +127,7 @@ public class Enemy : Character
             }
         }
     }
+
     private Vector3 GetRandomMovePosition()
     {
         Vector3 v = transform.position;
@@ -151,7 +153,7 @@ public class Enemy : Character
         NavMeshHit hit;
         if (NavMesh.SamplePosition(newPosition, out hit, 5.0f, NavMesh.AllAreas))
         {
-            Debug.LogFormat("position={0}, distance={1}", hit.position, Vector3.Distance(hit.position, transform.position));
+            //Debug.LogFormat("position={0}, distance={1}", hit.position, Vector3.Distance(hit.position, transform.position));
             return hit.position;
         }
 
@@ -210,12 +212,22 @@ public class Enemy : Character
             CheckTargetPoint(false);
         }
     }
+
     public void CheckTargetPoint(bool isTarget)
     {
         imgTargetPoint.gameObject.SetActive(isTarget);
         imgTargetPoint.color = Color.gray;
     }
 
+    public void TakeDamge(float damage, GameObject gameObject)
+    {
+        LastAttacker = gameObject;
+        currentHealth -= damage;
+        if ((int)currentHealth <= 0f)
+        {
+            GameController.Instance.mode.OnDeadEnemy(this);
+        }
+    }
 
 }
 

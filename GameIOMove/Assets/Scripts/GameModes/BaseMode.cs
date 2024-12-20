@@ -7,7 +7,7 @@ public class BaseMode : MonoBehaviour
 {
 
     //public BaseWeapon wp;
-    public Transform playerSpawn;
+    // public Transform playerSpawn;
     public Transform enemySpawn;
     public static GameMode currentGameMode;
 
@@ -74,27 +74,18 @@ public class BaseMode : MonoBehaviour
             CameraController.Instance.SetTarget(GameController.Instance.currentPlayer.transform);
         }
     }
-
-
     public virtual void OnDeadEnemy(Enemy enemy)
     {
-        gameController.enemies.Remove(enemy);
-        gameController.point += 1;
-        gameController.UpdateScore();
-        if (gameController.enemies.Count == 0)
-        {
-            gameController.currentPlayer.ChangeState(BehaviourState.Idle);
-            gameController.ShowPopupDropItem();
-        }
+
 
     }
     public virtual void OnDeadCurrentPlayer(Player player)
     {
-        foreach (var enemy in GameController.Instance.enemies)
-        {
-            enemy.CheckTargetPoint(false);
-            enemy.ChangeState(BehaviourState.Idle);
-        }
+
+
     }
+
+
+
 }
 

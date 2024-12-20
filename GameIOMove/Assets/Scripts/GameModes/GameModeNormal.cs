@@ -91,4 +91,24 @@ public class GameModeNormal : BaseMode
     //        }
     //    }
     //}
+    public override void OnDeadEnemy(Enemy enemy)
+    {
+        gameController.enemies.Remove(enemy);
+        gameController.point += 1;
+        gameController.UpdateScore();
+        if (gameController.enemies.Count == 0)
+        {
+            gameController.currentPlayer.ChangeState(BehaviourState.Idle);
+            gameController.ShowPopupDropItem();
+        }
+
+    }
+    public override void OnDeadCurrentPlayer(Player player)
+    {
+        foreach (var enemy in GameController.Instance.enemies)
+        {
+            enemy.CheckTargetPoint(false);
+            enemy.ChangeState(BehaviourState.Idle);
+        }
+    }
 }
