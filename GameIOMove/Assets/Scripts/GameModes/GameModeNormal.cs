@@ -93,6 +93,7 @@ public class GameModeNormal : BaseMode
     //}
     public override void OnDeadEnemy(Enemy enemy)
     {
+        base.OnDeadEnemy(enemy);
         gameController.enemies.Remove(enemy);
         gameController.point += 1;
         gameController.UpdateScore();
@@ -105,6 +106,7 @@ public class GameModeNormal : BaseMode
     }
     public override void OnDeadCurrentPlayer(Player player)
     {
+        base.OnDeadCurrentPlayer(player);
         foreach (var enemy in GameController.Instance.enemies)
         {
             enemy.CheckTargetPoint(false);

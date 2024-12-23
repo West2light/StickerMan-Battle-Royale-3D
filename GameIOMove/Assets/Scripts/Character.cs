@@ -12,9 +12,16 @@ public enum BehaviourState
     Dance,
     Win
 }
-
+public enum TeamID
+{
+    A = 0,
+    B = 1,
+    C = 2,
+    D = 3
+}
 public class Character : MonoBehaviour
 {
+    public TeamID teamID;
     public Animator animator;
     public BehaviourState state = BehaviourState.Idle;
     public float timerIdle;
@@ -340,6 +347,7 @@ public class Character : MonoBehaviour
 
     public virtual void TakeDamage(float damage)
     {
+
         currentHealth -= damage;
         if ((int)currentHealth <= 0f)
         {

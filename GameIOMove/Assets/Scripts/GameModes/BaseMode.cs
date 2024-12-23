@@ -79,6 +79,7 @@ public class BaseMode : MonoBehaviour
 
 
     }
+
     public virtual void OnDeadCurrentPlayer(Player player)
     {
 

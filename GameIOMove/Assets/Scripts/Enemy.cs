@@ -11,7 +11,7 @@ public class Enemy : Character
     public float detectionRadius;
     public Image imgTargetPoint;
 
-    public GameObject LastAttacker { get; private set; }
+
     protected override void OnEnable()
     {
         base.OnEnable();
@@ -207,9 +207,10 @@ public class Enemy : Character
         base.Dead();
         if (this.state == BehaviourState.Dead)
         {
-            GameController.Instance.mode.OnDeadEnemy(this);
 
+            GameController.Instance.mode.OnDeadEnemy(this);
             CheckTargetPoint(false);
+            return;
         }
     }
 
@@ -219,15 +220,7 @@ public class Enemy : Character
         imgTargetPoint.color = Color.gray;
     }
 
-    public void TakeDamge(float damage, GameObject gameObject)
-    {
-        LastAttacker = gameObject;
-        currentHealth -= damage;
-        if ((int)currentHealth <= 0f)
-        {
-            GameController.Instance.mode.OnDeadEnemy(this);
-        }
-    }
+
 
 }
 

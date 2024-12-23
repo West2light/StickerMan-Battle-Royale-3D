@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -8,7 +9,10 @@ public class GameModeTeam : BaseMode
 {
     public Transform spawnPoint;
     public List<Transform> spawnPoints;
-
+    public PopupEndGame popupEndGame;
+    public TMP_Text teamScoreText;
+    public string attackingTeam;
+    public string victimTeam;
     private readonly string[] teamTags = { "TeamA", "TeamB", "TeamC", "TeamD" };
     private Dictionary<string, int> teamScores = new Dictionary<string, int>();
 
@@ -61,12 +65,12 @@ public class GameModeTeam : BaseMode
             CreateEnemy(entry.Spawn, entry.TeamTag);
         }
         AssginPlayer();
-
+        CalculateFinalScores();
     }
     public override void EndGame()
     {
         base.EndGame();
-
+        popupEndGame.gameObject.SetActive(true);
     }
 
     public override void CreateEnemy(Transform spawn, string teamTag)
@@ -99,7 +103,7 @@ public class GameModeTeam : BaseMode
             Enemy enemy = gameController.enemies[i];
             if (enemy.tag == gameController.currentPlayer.tag)
             {
-                Debug.LogFormat("Playeyr move to {0}", enemy.gameObject.name);
+                // Debug.LogFormat("Playeyr move to {0}", enemy.gameObject.name);
                 gameController.currentPlayer.transform.position = new Vector3(enemy.transform.position.x + Random.Range(-0.5f, 0.5f), 0f, enemy.transform.position.z);
                 gameController.currentPlayer.transform.rotation = enemy.transform.rotation;
                 gameController.currentPlayer.gameObject.name = string.Format("{0}-player", playerTeamTag);
@@ -114,35 +118,61 @@ public class GameModeTeam : BaseMode
     public override void OnDeadCurrentPlayer(Player player)
     {
         base.OnDeadCurrentPlayer(player);
+        if (teamTags.Length == 1)
+        {
+            for (int i = 0; i < gameController.enemies.Count; i++)
+            {
+                gameController.enemies[i].ChangeState(BehaviourState.Win);
+            }
 
+            EndGame();
+        }
     }
-    private void UpdateScoresUI()
+    private void UpdateTeamScoresUI()
     {
-        string scoreTxt = "";
+        string scoreText = "";
+        foreach (var team in teamScores)
+        {
+            if (team.Key == gameController.currentPlayer.tag)
+            {
+                scoreText += $"<color=blue>{team.Key}: {team.Value}</color>\n";
+            }
+            else
+            {
+                scoreText += $"{team.Key}: {team.Value}\n";
+            }
+        }
 
-
-
+        teamScoreText.text = scoreText;
 
     }
+    public void CalculateFinalScores()
+    {
+        foreach (var team in teamScores.Keys.ToList())
+        {
+            int kills = teamScores[team];
+            float contributionFactor = 1.0f;
+
+
+            teamScores[team] = Mathf.RoundToInt(kills * contributionFactor);
+        }
+
+
+        UpdateTeamScoresUI();
+    }
+
     public override void OnDeadEnemy(Enemy enemy)
     {
         base.OnDeadEnemy(enemy);
-        string attackingTeam;
-        if (enemy.LastAttacker != null)
-        {
-            attackingTeam = enemy.LastAttacker.tag;
-        }
-        else
-        {
-            attackingTeam = null;
-        }
-        if (attackingTeam != null && teamScores.ContainsKey(attackingTeam))
+        bool isNotNull = attackingTeam != null && victimTeam != null;
+        bool isNotATeam = victimTeam != attackingTeam;
+        bool isInTeamScores = teamScores.ContainsKey(attackingTeam) && teamScores.ContainsKey(victimTeam);
+        if (isNotNull && isNotATeam && isInTeamScores)
         {
             teamScores[attackingTeam]++;
         }
         gameController.enemies.Remove(enemy);
-
-        UpdateScoresUI();
+        UpdateTeamScoresUI();
 
     }
 

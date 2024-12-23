@@ -186,10 +186,7 @@ public class Player : Character
     }
     private void CheckNearestEnemy()
     {
-        if (state == BehaviourState.Dead)
-        {
-            return;
-        }
+
         Enemy nearestEnemy = null;
         float shortestDistance = Mathf.Infinity;
         for (int i = 0; i < GameController.Instance.enemies.Count; i++)
@@ -210,7 +207,10 @@ public class Player : Character
         {
             RotateToward(nearestEnemy);
         }
-
+        if (state == BehaviourState.Dead)
+        {
+            nearestEnemy.CheckTargetPoint(false);
+        }
 
     }
     protected override void Dead()
@@ -219,15 +219,21 @@ public class Player : Character
         if (state == BehaviourState.Dead)
         {
             GameController.Instance.mode.OnDeadCurrentPlayer(this);
+            return;
         }
 
     }
     private void CheckSecene()
     {
+
         if (SceneManager.GetActiveScene().name == "Lobby")
         {
             txAddPoint.transform.parent.gameObject.SetActive(false);
             rangeUI.transform.parent.gameObject.SetActive(false);
+        }
+        if (GameController.Instance.mode is GameModeTeam)
+        {
+            txAddPoint.transform.parent.gameObject.SetActive(false);
         }
     }
 

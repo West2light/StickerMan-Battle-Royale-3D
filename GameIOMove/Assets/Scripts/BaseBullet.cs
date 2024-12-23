@@ -60,14 +60,22 @@ public class BaseBullet : MonoBehaviour
         if (shooter.CompareTag(other.transform.root.tag) == false)
         {
             Character targetCharacter = other.GetComponentInParent<Character>();
+            if (targetCharacter == null) return;
             if (targetCharacter != null && targetCharacter.enabled == true)
             {
                 float damage = targetCharacter.maxHP / 3f;
                 targetCharacter.TakeDamage(damage);
             }
             ReturnToPool();
+            var currentMode = GameController.Instance.mode;
+            if (currentMode is GameModeTeam teamMode)
+            {
+                teamMode.attackingTeam = shooter.tag;
+                teamMode.victimTeam = targetCharacter.tag;
+            }
         }
     }
+
 
     private void TrackingDeactive()
     {
@@ -79,7 +87,7 @@ public class BaseBullet : MonoBehaviour
     }
 
 
-    private void ReturnToPool()
+    public void ReturnToPool()
     {
         BulletPool.Instance.ReturnBullet(this);
     }
