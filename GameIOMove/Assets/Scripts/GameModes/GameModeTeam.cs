@@ -11,8 +11,8 @@ public class GameModeTeam : BaseMode
     public List<Transform> spawnPoints;
     public PopupEndGame popupEndGame;
     public TMP_Text teamScoreText;
-    public string attackingTeam;
-    public string victimTeam;
+    /*public string attackingTeam;
+    public string victimTeam;*/
     private readonly string[] teamTags = { "TeamA", "TeamB", "TeamC", "TeamD" };
     private Dictionary<string, int> teamScores = new Dictionary<string, int>();
 
@@ -152,8 +152,6 @@ public class GameModeTeam : BaseMode
         {
             int kills = teamScores[team];
             float contributionFactor = 1.0f;
-
-
             teamScores[team] = Mathf.RoundToInt(kills * contributionFactor);
         }
 
@@ -164,16 +162,13 @@ public class GameModeTeam : BaseMode
     public override void OnDeadEnemy(Enemy enemy)
     {
         base.OnDeadEnemy(enemy);
-        bool isNotNull = attackingTeam != null && victimTeam != null;
-        bool isNotATeam = victimTeam != attackingTeam;
-        bool isInTeamScores = teamScores.ContainsKey(attackingTeam) && teamScores.ContainsKey(victimTeam);
-        if (isNotNull && isNotATeam && isInTeamScores)
+        string attackingTeam = enemy.LastAttacker;
+        if (attackingTeam != null && teamScores.ContainsKey(attackingTeam))
         {
-            teamScores[attackingTeam]++;
+            ++teamScores[attackingTeam];
         }
         gameController.enemies.Remove(enemy);
         UpdateTeamScoresUI();
-
     }
 
 }

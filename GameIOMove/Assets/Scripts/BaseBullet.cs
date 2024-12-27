@@ -60,19 +60,27 @@ public class BaseBullet : MonoBehaviour
         if (shooter.CompareTag(other.transform.root.tag) == false)
         {
             Character targetCharacter = other.GetComponentInParent<Character>();
-            if (targetCharacter == null) return;
+
+            if (targetCharacter == null || targetCharacter.state == BehaviourState.Dead || targetCharacter.gameObject.activeSelf == false) return;
+            //var currentMode = GameController.Instance.mode;
+            //if (currentMode is GameModeTeam teamMode)
+            //{
+            //    /* teamMode.attackingTeam = shooter.tag;
+            //     teamMode.victimTeam = targetCharacter.tag;*/
+            //    float damage = targetCharacter.maxHP / 3f;
+            //    targetCharacter.TakeDamage(damage, shooter.gameObject);
+            //    ReturnToPool();
+            //}
+            //else
+            //{
             if (targetCharacter != null && targetCharacter.enabled == true)
             {
                 float damage = targetCharacter.maxHP / 3f;
-                targetCharacter.TakeDamage(damage);
+                targetCharacter.TakeDamage(damage, shooter.gameObject);
             }
             ReturnToPool();
-            var currentMode = GameController.Instance.mode;
-            if (currentMode is GameModeTeam teamMode)
-            {
-                teamMode.attackingTeam = shooter.tag;
-                teamMode.victimTeam = targetCharacter.tag;
-            }
+
+
         }
     }
 

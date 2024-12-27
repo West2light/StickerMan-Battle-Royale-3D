@@ -19,6 +19,7 @@ public enum TeamID
     C = 2,
     D = 3
 }
+
 public class Character : MonoBehaviour
 {
     public TeamID teamID;
@@ -52,7 +53,11 @@ public class Character : MonoBehaviour
     public float currentHealth;
     public float maxHP;
     public string TeamTag;
-
+    public string LastAttacker
+    {
+        get;
+        private set;
+    }
     #region Unity Methods
     protected virtual void Awake()
     {
@@ -139,7 +144,7 @@ public class Character : MonoBehaviour
     public virtual void ChangeWeapon()
     {
         int randomIndex = Random.Range(0, weaponPrefabs.Length);
-        Debug.LogFormat("WeaponPrefabs.Length =  {0}", weaponPrefabs.Length);
+        //   Debug.LogFormat("WeaponPrefabs.Length =  {0}", weaponPrefabs.Length);
         BaseWeapon prefab = weaponPrefabs[randomIndex];
         if (prefab != null)
         {
@@ -345,12 +350,23 @@ public class Character : MonoBehaviour
     }
     #endregion
 
-    public virtual void TakeDamage(float damage)
-    {
+    //public virtual void TakeDamage(float damage)
+    //{
 
+    //    currentHealth -= damage;
+    //    if ((int)currentHealth <= 0f)
+    //    {
+
+    //        ChangeState(BehaviourState.Dead);
+    //        return;
+    //    }
+    //}
+    public virtual void TakeDamage(float damage, GameObject gameObject)
+    {
         currentHealth -= damage;
-        if ((int)currentHealth <= 0f)
+        if ((int)currentHealth <= 0)
         {
+            LastAttacker = gameObject.tag;
             ChangeState(BehaviourState.Dead);
             return;
         }

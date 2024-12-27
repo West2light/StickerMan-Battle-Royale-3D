@@ -210,6 +210,7 @@ public class Player : Character
         if (state == BehaviourState.Dead)
         {
             nearestEnemy.CheckTargetPoint(false);
+            return;
         }
 
     }

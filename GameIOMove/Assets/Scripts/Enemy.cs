@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.UI;
@@ -221,7 +222,11 @@ public class Enemy : Character
     }
 
 
+    public override void TakeDamage(float damage, GameObject gameObject)
+    {
+        base.TakeDamage(damage, gameObject);
 
+    }
 }
 
 
